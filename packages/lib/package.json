@@ -1,0 +1,5 @@
+{
+  "name": "@take-a-seat/lib",
+  "version": "1.0.0",
+  "main": "firebase.ts"
+}

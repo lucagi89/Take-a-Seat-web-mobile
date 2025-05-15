@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@take-a-seat/lib": ["packages/lib"],
+      "@take-a-seat/types": ["packages/types"]
+    }
+  }
+}
