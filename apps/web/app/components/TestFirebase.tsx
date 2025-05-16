@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "@take-a-seat/firebase/firebase.native";
+import { auth, db } from "../../../../packages/firebase";
 
 export default function TestFirebase() {
   const [status, setStatus] = useState("⏳ Testing...");

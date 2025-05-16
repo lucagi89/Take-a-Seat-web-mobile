@@ -6,11 +6,13 @@
     "baseUrl": ".",
     "paths": {
       "@take-a-seat/lib": ["packages/lib"],
-      "@take-a-seat/types": ["packages/types"]
+      "@take-a-seat/types": ["packages/types"],
+      "@firebase": ["packages/firebase"]
     },
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
   },
   "include": ["apps", "packages"]
 }

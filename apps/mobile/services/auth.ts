@@ -1,7 +1,7 @@
 // src/services/auth.ts
 import { auth, provider } from '../../../packages/firebase/firebase.native';
 import { User } from 'firebase/auth';
-import { useRouter } from "expo-router";
+// import { useRouter } from "expo-router";
 
 import {
   createUserWithEmailAndPassword,

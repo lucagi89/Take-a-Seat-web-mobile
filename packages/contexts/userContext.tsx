@@ -4,7 +4,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase.native";
 
 import { fetchUserData } from "../services/databaseActions";
-import { UserData, UserContextType } from "../data/types";
+import { UserData, UserContextType } from "../../apps/mobile/data/types";
 
 const UserContext = createContext<UserContextType | null>(null);
 
