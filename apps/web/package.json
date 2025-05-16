@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "firebase": "^11.6.1",
-    "next": "^15.3.1",
+    "next-transpile-modules": "^10.0.1",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react-dom": "^18.3.0",
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -20,9 +21,15 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "css-loader": "^7.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
-    "tailwindcss": "^4",
+    "next": "^15.3.2",
+    "postcss": "^8.5.3",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^4.1.7",
     "typescript": "^5"
   }
 }

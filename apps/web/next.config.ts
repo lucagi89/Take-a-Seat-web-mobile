@@ -1,8 +1,15 @@
 import "dotenv/config";
-import { withExpo } from "@expo/next-adapter"; // ✅ if you're using Expo
+import withTM from "next-transpile-modules";
+import path from "path";
 import type { NextConfig } from "next";
 
-const config: NextConfig = {
+const withTranspileModules = withTM([
+  "react-native",
+  "react-native-web",
+  "expo",
+]);
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   env: {
@@ -15,13 +22,9 @@ const config: NextConfig = {
   },
 
   webpack: (config) => {
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      "react-native$": "react-native-web", // ✅ fix for the 'typeof' error
-    };
-
+    config.resolve.alias["@firebase"] = path.resolve(__dirname, "../../packages/firebase/index.web.ts");
     return config;
   },
 };
 
-export default withExpo(config);
+export default withTranspileModules(nextConfig);

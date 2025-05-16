@@ -1,0 +1,8 @@
+export const content = [
+  "./app/**/*.{js,ts,jsx,tsx}",
+  "../../packages/**/*.{js,ts,jsx,tsx}"
+];
+export const theme = {
+  extend: {},
+};
+export const plugins = [];
