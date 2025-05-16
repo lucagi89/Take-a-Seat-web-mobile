@@ -26,6 +26,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@swc/helpers": "^0.5.17",
     "firebase": "^11.7.3"
   }
 }
