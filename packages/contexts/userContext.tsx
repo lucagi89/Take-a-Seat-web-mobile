@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
-import { auth, db } from "../scripts/firebase.config";
+import { auth, db } from "../firebase/firebase.config";
 
 import { fetchUserData } from "../services/databaseActions";
 import { UserData, UserContextType } from "../data/types";
