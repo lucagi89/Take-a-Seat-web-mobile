@@ -19,7 +19,7 @@ export default function HomePage() {
           </p>
         </Link>
 
-        <Link href="/apply">
+        <Link href="/signup">
           <p className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-lg text-lg font-semibold text-center">
             I Want to Join as a New Restaurant
           </p>
