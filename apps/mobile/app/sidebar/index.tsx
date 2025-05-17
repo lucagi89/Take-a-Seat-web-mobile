@@ -6,7 +6,7 @@ import { styles } from "../../styles/main-page-style";
 import SidebarLinks from "./SidebarLinks";
 import SidebarFooter from "./SidebarFooter";
 
-export const Sidebar = ({
+const Sidebar = ({
   user,
   userData,
   router,
@@ -55,3 +55,5 @@ export const Sidebar = ({
     </View>
   );
 };
+
+export default Sidebar;
