@@ -140,7 +140,7 @@ export default function Map() {
 
           <TouchableOpacity
             style={styles.menuButton}
-            onPress={() => router.push("/sidebar")}
+            onPress={() => router.push("/profile")}
           >
             <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
