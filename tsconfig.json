@@ -5,7 +5,7 @@
     "target": "es6",
     "baseUrl": ".",
     "paths": {
-      "@take-a-seat/lib": ["packages/lib"],
+      "@take-a-seat/lib": ["apps/web/lib"],
       "@take-a-seat/types": ["packages/types"],
     },
     "moduleResolution": "node",
