@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { app } from "@firebase"; // Adjust the path to your firebaseConfig
+import { app } from "../../../../packages/firebase/firebase"; // Adjust the path to your firebaseConfig
 
 const auth = getAuth(app);
 const db = getFirestore(app);

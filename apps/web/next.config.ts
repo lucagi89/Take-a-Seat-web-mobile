@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
   },
 
   webpack: (config) => {
-    config.resolve.alias["@firebase"] = path.resolve(__dirname, "../../packages/firebase/index.web.ts");
+    config.resolve.alias["@firebase"] = path.resolve(__dirname, "../../packages/firebase/firebase.ts");
     return config;
   },
 };
