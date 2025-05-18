@@ -29,7 +29,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className={Styles.container}>
+    <>
       <form onSubmit={handleLogin} className={Styles.form}>
         <h1 className={Styles.title}>Log in</h1>
 
@@ -59,6 +59,6 @@ export default function LoginPage() {
           Log in
         </button>
       </form>
-    </main>
+    </>
   );
 }

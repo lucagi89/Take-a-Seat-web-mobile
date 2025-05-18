@@ -28,7 +28,7 @@ export default function SignupPage() {
   };
 
   return (
-    <main className={Styles.container}>
+    <>
       <form onSubmit={handleSignup} className={Styles.form}>
         <h1 className={Styles.title}>Sign up</h1>
 
@@ -73,6 +73,6 @@ export default function SignupPage() {
           Sign up
         </button>
       </form>
-    </main>
+    </>
   );
 }

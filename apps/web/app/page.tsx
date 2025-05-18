@@ -4,7 +4,7 @@ import styles from "../styles/home-page.module.scss";
 
 export default function HomePage() {
   return (
-    <main className={styles.container}>
+    <>
       <h1 className={styles.title}>Take a Seat</h1>
       <p className={styles.message}>
         This platform is for restaurant owners only. If you&#39;re a customer,
@@ -26,6 +26,6 @@ export default function HomePage() {
         use the <span className="font-semibold">Take a Seat</span> mobile app
         available on iOS and Android.
       </div>
-    </main>
+    </>
   );
 }
