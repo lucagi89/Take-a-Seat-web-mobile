@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "../../services/auth";
+import Styles from "../../styles/login-signup.module.scss";
 
 export default function SignupPage() {
   // const [restaurantName, setRestaurantName] = useState("");
@@ -27,11 +28,9 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 bg-white text-gray-800">
-      <form onSubmit={handleSignup} className="w-full max-w-md space-y-6">
-        <h1 className="text-3xl font-bold text-center">
-          Sign up as a Restaurant
-        </h1>
+    <main className={Styles.container}>
+      <form onSubmit={handleSignup} className={Styles.form}>
+        <h1 className={Styles.title}>Sign up</h1>
 
         {/* <div>
           <label className="block text-sm mb-1">Restaurant Name</label>
@@ -50,7 +49,7 @@ export default function SignupPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg"
+            className={Styles.input}
             required
           />
         </div>
@@ -61,7 +60,7 @@ export default function SignupPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg"
+            className={Styles.input}
             required
           />
         </div>
@@ -69,7 +68,7 @@ export default function SignupPage() {
         <button
           type="submit"
           onSubmit={() => handleSignup}
-          className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 rounded-lg font-semibold"
+          className={Styles.button}
         >
           Sign up
         </button>

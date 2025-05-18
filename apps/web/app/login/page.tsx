@@ -30,8 +30,8 @@ export default function LoginPage() {
 
   return (
     <main className={Styles.container}>
-      <form onSubmit={handleLogin} className="w-full max-w-md space-y-6">
-        <h1 className="text-3xl font-bold text-center">Log in</h1>
+      <form onSubmit={handleLogin} className={Styles.form}>
+        <h1 className={Styles.title}>Log in</h1>
 
         <div>
           <label className="block text-sm mb-1">Email</label>
@@ -39,7 +39,7 @@ export default function LoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg"
+            className={Styles.input}
             required
           />
         </div>
@@ -50,7 +50,7 @@ export default function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg"
+            className={Styles.input}
             required
           />
         </div>
