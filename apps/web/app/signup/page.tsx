@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signUp } from "../../../../general-services/auth";
+import { signUp } from "../../services/auth";
 
 export default function SignupPage() {
   // const [restaurantName, setRestaurantName] = useState("");

@@ -1,5 +1,5 @@
 // src/services/auth.ts
-import { auth } from '../apps/web/lib/firebase.config';
+import { auth } from '../lib/firebase.config';
 import { User } from 'firebase/auth';
 import { useRouter } from "expo-router";
 
