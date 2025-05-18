@@ -1,7 +1,7 @@
 $font-color: #fdd564;
 
 
-.container {
+@mixin container {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -34,6 +34,27 @@ $font-color: #fdd564;
     position: relative;
     z-index: 1;
   }
+}
+
+@mixin button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      width: 100%;
+      color: #fff;
+      background-color: $font-color;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken($font-color, 20%);
+      }
+    }
+
+.container {
+  @include container;
+}
 
   .title {
     font-size: 5rem;
@@ -49,19 +70,10 @@ $font-color: #fdd564;
     margin-bottom: 2rem;
 
     .button {
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      color: #fff;
-      background-color: $font-color;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: darken($font-color, 20%);
-      }
+      @include button;
     }
+
+
   }
   .message{
     font-size: 1.2rem;
@@ -70,4 +82,3 @@ $font-color: #fdd564;
     text-align: center;
     max-width: 600px;
   }
-}

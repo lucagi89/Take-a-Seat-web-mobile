@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { handleUser } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
+import Styles from "../../styles/login-signup.module.scss";
 
 export default function LoginPage() {
   const { user, loading, setLoading } = useUser();
@@ -28,7 +29,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 bg-white text-gray-800">
+    <main className={Styles.container}>
       <form onSubmit={handleLogin} className="w-full max-w-md space-y-6">
         <h1 className="text-3xl font-bold text-center">Log in</h1>
 
@@ -54,11 +55,7 @@ export default function LoginPage() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg font-semibold"
-          disabled={loading}
-        >
+        <button type="submit" className={Styles.button} disabled={loading}>
           Log in
         </button>
       </form>
