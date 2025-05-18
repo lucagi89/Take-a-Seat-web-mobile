@@ -24,52 +24,6 @@ export default function Map() {
   const { user, userData, loading } = useUser();
   const { region, setRegion, loading: locationLoading } = useLocation();
   const { visibleRestaurants } = useRestaurants(region);
-  // const [sidebarVisible, setSidebarVisible] = useState(false);
-  // const { slideAnim, imageScaleAnim, openSidebar, closeSidebar } =
-  //   useSidebarAnimation();
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       toggleSidebar(false);
-  //       setSidebarVisible(false);
-  //     };
-  //   }, [])
-  // );
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // when screen is focused → do nothing special
-  //     return () => {
-  //       // when screen is unfocused → always close the sidebar
-  //       if (sidebarVisible) {
-  //         closeSidebar();
-  //         setSidebarVisible(false);
-  //       }
-  //     };
-  //   }, [sidebarVisible, closeSidebar])
-  // );
-
-  // const toggleSidebar = (onFinish?: () => void) => {
-  //   setSidebarVisible((prevVisible) => {
-  //     const nextVisible = !prevVisible;
-
-  //     if (nextVisible) {
-  //       openSidebar();
-  //     } else {
-  //       closeSidebar();
-
-  //       setTimeout(() => {
-  //         if (typeof onFinish === "function") {
-  //           onFinish();
-  //         } // ✅ call navigation only after animation finishes
-  //       }, 300); // match sidebar animation duration
-  //       setSidebarVisible(false);
-  //     }
-
-  //     return nextVisible;
-  //   });
-  // };
 
   const restaurantSelectionHandler = async (restaurantId: string) => {
     if (!user) {

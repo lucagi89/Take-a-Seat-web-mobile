@@ -1,15 +1,29 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signUp } from "../../../../general-services/auth";
 
 export default function SignupPage() {
-  const [restaurantName, setRestaurantName] = useState("");
+  // const [restaurantName, setRestaurantName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: integrate signup logic here
-    console.log("Registering restaurant", restaurantName, email);
+    console.log("Registering restaurant", email);
+    signUp(email, password)
+      .then((response) => {
+        console.log("Signup successful:", response);
+        // Handle successful signup (e.g., redirect to dashboard)
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        console.error("Signup error:", error);
+        // Handle signup error (e.g., show error message)
+        alert("Signup failed. Please check your credentials.");
+      });
   };
 
   return (
@@ -19,7 +33,7 @@ export default function SignupPage() {
           Sign up as a Restaurant
         </h1>
 
-        <div>
+        {/* <div>
           <label className="block text-sm mb-1">Restaurant Name</label>
           <input
             type="text"
@@ -28,7 +42,7 @@ export default function SignupPage() {
             className="w-full border border-gray-300 px-3 py-2 rounded-lg"
             required
           />
-        </div>
+        </div> */}
 
         <div>
           <label className="block text-sm mb-1">Email</label>
@@ -54,6 +68,7 @@ export default function SignupPage() {
 
         <button
           type="submit"
+          onSubmit={() => handleSignup}
           className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 rounded-lg font-semibold"
         >
           Sign up

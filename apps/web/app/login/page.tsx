@@ -1,14 +1,30 @@
 "use client";
 import React, { useState } from "react";
+import { handleUser } from "../../../../general-services/auth";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/contexts/userContext";
 
 export default function LoginPage() {
+  const { user, loading, setLoading } = useUser();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: integrate login logic here
-    console.log("Logging in with", email, password);
+    setLoading(true);
+    handleUser(email, password)
+      .then((response) => {
+        console.log("Login successful:", response);
+        // Handle successful login (e.g., redirect to dashboard)
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        // Handle login error (e.g., show error message)
+        alert("Login failed. Please check your credentials.");
+      });
+    setLoading(false);
   };
 
   return (
@@ -41,6 +57,7 @@ export default function LoginPage() {
         <button
           type="submit"
           className="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg font-semibold"
+          disabled={loading}
         >
           Log in
         </button>
