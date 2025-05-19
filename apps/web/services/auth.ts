@@ -1,19 +1,19 @@
 // src/services/auth.ts
 import { auth } from '../lib/firebase.config';
 import { User } from 'firebase/auth';
-import { useRouter } from "expo-router";
+// import { useRouter } from "expo-router";
 
 import {
   createUserWithEmailAndPassword,
-  getAuth,
+  // getAuth,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithCredential,
+  // GoogleAuthProvider,
+  // signInWithCredential,
   signOut
 
 } from 'firebase/auth';
 // import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+// import * as Google from 'expo-auth-session/providers/google';
 
 
 // WebBrowser.maybeCompleteAuthSession();

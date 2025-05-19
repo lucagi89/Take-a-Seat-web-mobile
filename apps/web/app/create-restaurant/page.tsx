@@ -8,6 +8,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../lib/firebase.config";
 import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
+import { handleLogout } from "@/services/auth";
+import Styles from "../../styles/create-restaurant.module.scss";
 
 const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
 
@@ -20,7 +22,7 @@ export default function CreateRestaurantPage() {
   const [openingHours, setOpeningHours] = useState<Date | null>(null);
   const [closingHours, setClosingHours] = useState<Date | null>(null);
 
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const handleKeywordToggle = (keyword: string) => {
     setKeywords((prev) =>
@@ -64,36 +66,49 @@ export default function CreateRestaurantPage() {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
+    <div className={Styles.fullWidthContainer}>
       <h1>Create a Restaurant</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Name</label>
-        <input {...register("name")} required />
+      <form onSubmit={handleSubmit(onSubmit)} className={Styles.formGrid}>
+        <div className={Styles.inputContainer}>
+          <label>Name</label>
+          <input {...register("name")} className={Styles.input} required />
+        </div>
 
-        <label>Street Address</label>
-        <input {...register("streetAddress")} required />
+        <div className={Styles.inputContainer}>
+          <label>Street Address</label>
+          <input {...register("streetAddress")} className={Styles.input} required />
+        </div>
 
-        <label>City</label>
-        <input {...register("city")} required />
+        <div className={Styles.inputContainer}>
+          <label>City</label>
+          <input {...register("city")} className={Styles.input} required />
+        </div>
+        <div className={Styles.inputContainer}>
+          <label>Postcode</label>
+          <input {...register("postcode")} className={Styles.input} required />
+        </div>
+        <div className={Styles.inputContainer}>
+          <label>Country</label>
+          <input {...register("country")} className={Styles.input} required />
+        </div>
+        <div className={Styles.inputContainer}>
+          <label>Phone</label>
+          <input {...register("phone")} className={Styles.input} required />
+        </div>
 
-        <label>Postcode</label>
-        <input {...register("postcode")} required />
-
-        <label>Country</label>
-        <input {...register("country")} required />
-
-        <label>Phone</label>
-        <input {...register("phone")} required />
-
-        <label>Email</label>
-        <input {...register("email")} type="email" required />
-
-        <label>Website</label>
-        <input {...register("website")} type="url" />
-
-        <label>Description</label>
-        <textarea {...register("description")} rows={4} required />
-
+        <div className={Styles.inputContainer}>
+          <label>Email</label>
+          <input {...register("email")} type="email" className={Styles.input} required />
+        </div>
+        <div className={Styles.inputContainer}>
+          <label>Website</label>
+          <input {...register("website")} className={Styles.input} type="url" />
+        </div>
+        <div className={Styles.inputContainer}>
+          <label>Description</label>
+          <textarea {...register("description")} rows={4} className={Styles.input} required />
+        </div>
+        <div className={Styles.inputContainer}>
         <label>Opening Hours</label>
         <DatePicker
           selected={openingHours}
@@ -113,6 +128,8 @@ export default function CreateRestaurantPage() {
           timeIntervals={15}
           dateFormat="h:mm aa"
         />
+        </div>
+        <div className={Styles.inputContainer}>
 
         <label>Keywords (up to 3)</label>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -128,6 +145,8 @@ export default function CreateRestaurantPage() {
             </label>
           ))}
         </div>
+        </div>
+        <div className={Styles.inputContainer}>
 
         <label>Images</label>
         <input
@@ -136,11 +155,17 @@ export default function CreateRestaurantPage() {
           accept="image/*"
           onChange={(e) => setImages(Array.from(e.target.files || []))}
         />
-
-        <button type="submit" disabled={uploading}>
+        </div>
+        <button type="submit" className={Styles.button} disabled={uploading}>
           {uploading ? "Creating..." : "Create Restaurant"}
         </button>
       </form>
+      <button
+        onClick={() => handleLogout()}
+        className={Styles.button}
+      >
+        Logout
+      </button>
     </div>
   );
 }
