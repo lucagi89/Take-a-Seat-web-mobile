@@ -15,7 +15,7 @@ $font-color: #fdd564;
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
   );
-  text-shadow: 0 0 3px rgb(0, 0, 0);
+  text-shadow: 0 0 1px rgb(0, 0, 0);
 
   &::before {
     content: "";
@@ -38,8 +38,9 @@ $font-color: #fdd564;
 
 @mixin button {
       padding: 1rem 2rem;
-      font-size: 1.5rem;
+      font-size: 2rem;
       width: 100%;
+      font-weight: bold;
       color: #fff;
       background-color: $font-color;
       border: none;

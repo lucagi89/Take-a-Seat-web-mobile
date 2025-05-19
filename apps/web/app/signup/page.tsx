@@ -3,12 +3,18 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "../../services/auth";
 import Styles from "../../styles/login-signup.module.scss";
+import { useUser } from "@/contexts/userContext";
 
 export default function SignupPage() {
   // const [restaurantName, setRestaurantName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { user } = useUser();
+
+  if (user) {
+    router.push("/dashboard");
+  }
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();

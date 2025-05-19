@@ -1,15 +1,19 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import styles from "../styles/home-page.module.scss";
+import { useUser } from "@/contexts/userContext";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const { user } = useUser();
+  const router = useRouter();
+  if (user) {
+    router.push("/dashboard");
+  }
   return (
     <>
       <h1 className={styles.title}>Take a Seat</h1>
-      <p className={styles.message}>
-        This platform is for restaurant owners only. If you&#39;re a customer,
-        please use our mobile app.
-      </p>
 
       <div className={styles.buttons}>
         <Link href="/login">
@@ -17,7 +21,7 @@ export default function HomePage() {
         </Link>
 
         <Link href="/signup">
-          <p className={styles.button}>I Want to Join as a New Restaurant</p>
+          <p className={styles.button}>I Want to Add my Restaurant</p>
         </Link>
       </div>
 

@@ -10,8 +10,8 @@ import {
   where,
   setDoc,
 } from "firebase/firestore";
-import { db } from "../scripts/firebase.config";
-import {geocodeAddress} from "./geolocation";
+import { db } from "./firebase.config";
+import {geocodeAddress} from "../services/geolocation";
 import { Restaurant, Dish, Review, Table, User } from "../data/types";
 import { getAuth } from "firebase/auth";
 import { deleteUser as deleteFirebaseUser } from "firebase/auth";
