@@ -27,8 +27,6 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Restaurant } from "../data/types";
 import { availableKeywords } from "../data/variables";
 import { tamplateRestaurant } from "../data/variables";
-import Autocomplete from "react-native-autocomplete-input";
-import countries from "world-countries"; // Import country data
 
 export default function CreateRestaurant() {
   const [restaurant, setRestaurant] =
@@ -127,7 +125,7 @@ export default function CreateRestaurant() {
     return await getDownloadURL(storageRef);
   };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (
       !name ||
       !description ||
