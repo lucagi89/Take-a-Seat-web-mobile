@@ -2,9 +2,19 @@
 
 .fullWidthContainer {
   width: 100%;
-  // padding: 2rem 5vw; /* adds horizontal breathing room */
-  background-color: #fff;
+  padding: 2rem 5vw; /* adds horizontal breathing room */
+  background-color: #0000003e;
   height: 100vh;
+  overflow:auto;
+
+  h1{
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem auto;
+    color: #333;
+    border: solid 1px #ccc;
+    padding: 1rem;
+  }
 }
 
 .formGrid {
@@ -33,7 +43,51 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  color: #ffffff;
 }
+
+.inputContainer input:focus,
+.inputContainer select:focus,
+.inputContainer textarea:focus {
+  border-color: #ffca28;
+  box-shadow: none; // ← ensure no extra sizing on focus
+  outline: none;
+}
+
+.inputTextarea {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.inputOpeningHours {
+  grid-column: span 2;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.inputKeywords {
+  grid-column: 1 / -1;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.keywordsContainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
 
 .button {
   @include button;

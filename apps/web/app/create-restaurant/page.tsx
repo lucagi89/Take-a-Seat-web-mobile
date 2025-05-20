@@ -8,10 +8,11 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../lib/firebase.config";
 import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
-import { handleLogout } from "@/services/auth";
+// import { handleLogout } from "@/services/auth";
+import { availableKeywords } from "@/data/variables";
 import Styles from "../../styles/create-restaurant.module.scss";
 
-const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
+// const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
 
 export default function CreateRestaurantPage() {
   const { user } = useUser();
@@ -21,6 +22,8 @@ export default function CreateRestaurantPage() {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [openingHours, setOpeningHours] = useState<Date | null>(null);
   const [closingHours, setClosingHours] = useState<Date | null>(null);
+  const [secondOpeningHours, setSecondOpeningHours] = useState<Date | null>(null);
+  const [secondClosingHours, setSecondClosingHours] = useState<Date | null>(null);
 
   const { register, handleSubmit } = useForm();
 
@@ -53,6 +56,8 @@ export default function CreateRestaurantPage() {
       keywords,
       openingHours: openingHours?.toISOString(),
       closingHours: closingHours?.toISOString(),
+      secondOpeningHours: secondOpeningHours?.toISOString(),
+      secondClosingHours: secondClosingHours?.toISOString(),
       imageUrls,
       userId: user.uid,
       isAvailable: true,
@@ -104,35 +109,59 @@ export default function CreateRestaurantPage() {
           <label>Website</label>
           <input {...register("website")} className={Styles.input} type="url" />
         </div>
-        <div className={Styles.inputContainer}>
+        <div className={`${Styles.inputContainer} ${Styles.inputTextarea}`}>
           <label>Description</label>
           <textarea {...register("description")} rows={4} className={Styles.input} required />
         </div>
-        <div className={Styles.inputContainer}>
-        <label>Opening Hours</label>
-        <DatePicker
-          selected={openingHours}
-          onChange={(date) => setOpeningHours(date)}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={15}
-          dateFormat="h:mm aa"
-        />
+        <div className={`${Styles.inputContainer} ${Styles.inputOpeningHours}`}>
+          <div className="flex flex-col gap-2">
+            <label>Opening Hours</label>
+            <DatePicker
+              selected={openingHours}
+              onChange={(date) => setOpeningHours(date)}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+            />
 
-        <label>Closing Hours</label>
-        <DatePicker
-          selected={closingHours}
-          onChange={(date) => setClosingHours(date)}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={15}
-          dateFormat="h:mm aa"
-        />
+            <label>Closing Hours</label>
+            <DatePicker
+              selected={closingHours}
+              onChange={(date) => setClosingHours(date)}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label>Second Opening Hours</label>
+            <DatePicker
+              selected={secondOpeningHours}
+              onChange={(date) => setSecondOpeningHours(date)}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+            />
+
+            <label>Second Closing Hours</label>
+            <DatePicker
+              selected={secondClosingHours}
+              onChange={(date) => setSecondClosingHours(date)}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+            />
+          </div>
         </div>
-        <div className={Styles.inputContainer}>
+        <div className={`${Styles.inputContainer} ${Styles.inputKeywords}`}>
 
         <label>Keywords (up to 3)</label>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <div className={Styles.keywordsContainer}>
           {availableKeywords.map((kw) => (
             <label key={kw}>
               <input
@@ -141,7 +170,7 @@ export default function CreateRestaurantPage() {
                 onChange={() => handleKeywordToggle(kw)}
                 disabled={!keywords.includes(kw) && keywords.length >= 3}
               />
-              {kw}
+              {`     ${kw}`}
             </label>
           ))}
         </div>
@@ -160,12 +189,12 @@ export default function CreateRestaurantPage() {
           {uploading ? "Creating..." : "Create Restaurant"}
         </button>
       </form>
-      <button
+      {/* <button
         onClick={() => handleLogout()}
         className={Styles.button}
       >
         Logout
-      </button>
+      </button> */}
     </div>
   );
 }
