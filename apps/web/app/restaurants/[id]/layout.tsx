@@ -4,6 +4,8 @@
 import { useParams } from "next/navigation";
 import { RestaurantProvider } from "../../../contexts/Restaurantcontext";
 import RestaurantNav from "../../components/RestaurantNav";
+import Bookingslist from "../../components/bookingsList";
+import Styles from "../../../styles/restaurant-dashboard.module.scss";
 
 export default function RestaurantLayout({
   children,
@@ -16,8 +18,11 @@ export default function RestaurantLayout({
 
   return (
     <RestaurantProvider restaurantId={id}>
-      <RestaurantNav />
-      <div className="flex flex-col gap-4">{children}</div>
+      <div className={Styles.container}>
+        <RestaurantNav />
+        <Bookingslist />
+        <div>{children}</div>
+      </div>
     </RestaurantProvider>
   );
 }
