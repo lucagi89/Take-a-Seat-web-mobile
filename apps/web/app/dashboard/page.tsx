@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import { useUser } from "../../contexts/userContext";
 import Styles from "../../styles/dashboard.module.scss";
 import { getUserRestaurants } from "../../lib/databaseActions";
+import { Restaurant } from '../../data/types'
 
 export default function DashboardPage() {
   const router = useRouter();
   const { user, loading } = useUser();
-  const [userRestaurants, setUserRestaurants] = useState([]);
+
+  const [userRestaurants, setUserRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
     if (!user && !loading) {
@@ -30,12 +32,6 @@ export default function DashboardPage() {
       fetchRestaurants();
     }
   }, [user]);
-
-  // useEffect(() => {
-  //   if (userRestaurants.length === 0) {
-  //     router.push("/create-restaurant");
-  //   }
-  // }, [userRestaurants, router]);
 
   return (
     <main className={Styles.container}>
@@ -69,7 +65,7 @@ export default function DashboardPage() {
       }
       <h2 className="">Create a New Restaurant</h2>
       <p className="text-center">
-        If you don't have any restaurants, you can create one.
+        If you don&#39;t have any restaurants, you can create one.
       </p>
       <button
         onClick={() => router.push("/create-restaurant")}
@@ -85,9 +81,6 @@ export default function DashboardPage() {
         <strong>Note:</strong> This is a demo application. The data is not
         persistent and will be reset after a while.
       </p>
-      <button onClick={() => router.push("/")} className={Styles.button}>
-        Go
-      </button>
     </main>
   );
 }
