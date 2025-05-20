@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 // import { handleLogout } from "@/services/auth";
 import { availableKeywords } from "@/data/variables";
 import Styles from "../../styles/create-restaurant.module.scss";
+import { createNewRestaurant } from "../../lib/databaseActions"
 
 // const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
 
@@ -56,18 +57,19 @@ export default function CreateRestaurantPage() {
       keywords,
       openingHours: openingHours?.toISOString(),
       closingHours: closingHours?.toISOString(),
-      secondOpeningHours: secondOpeningHours?.toISOString(),
-      secondClosingHours: secondClosingHours?.toISOString(),
+      secondOpeningHours: secondOpeningHours?.toISOString() || "",
+      secondClosingHours: secondClosingHours?.toISOString() || "",
       imageUrls,
       userId: user.uid,
       isAvailable: true,
     };
 
     console.log("Final restaurant data:", newRestaurant);
+    await createNewRestaurant(newRestaurant, "restaurants")
 
     // Call your Firestore function here (e.g. addDoc)
     setUploading(false);
-    router.push("/profile");
+    router.push("/dashboard");
   };
 
   return (
@@ -121,8 +123,9 @@ export default function CreateRestaurantPage() {
               onChange={(date) => setOpeningHours(date)}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={5}
               dateFormat="h:mm aa"
+              required
             />
 
             <label>Closing Hours</label>
@@ -131,8 +134,9 @@ export default function CreateRestaurantPage() {
               onChange={(date) => setClosingHours(date)}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={5}
               dateFormat="h:mm aa"
+              required
             />
           </div>
 
@@ -143,7 +147,7 @@ export default function CreateRestaurantPage() {
               onChange={(date) => setSecondOpeningHours(date)}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={5}
               dateFormat="h:mm aa"
             />
 
@@ -153,7 +157,7 @@ export default function CreateRestaurantPage() {
               onChange={(date) => setSecondClosingHours(date)}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={5}
               dateFormat="h:mm aa"
             />
           </div>
@@ -185,6 +189,19 @@ export default function CreateRestaurantPage() {
           onChange={(e) => setImages(Array.from(e.target.files || []))}
         />
         </div>
+
+        <div className={Styles.previewContainer}>
+  {images.map((img, index) => (
+    <img
+      key={index}
+      src={URL.createObjectURL(img)}
+      className={Styles.previewImage}
+      alt="preview"
+    />
+  ))}
+</div>
+
+
         <button type="submit" className={Styles.button} disabled={uploading}>
           {uploading ? "Creating..." : "Create Restaurant"}
         </button>

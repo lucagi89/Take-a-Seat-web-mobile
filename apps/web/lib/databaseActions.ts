@@ -306,8 +306,9 @@ export async function findRestaurantDishes(restaurantId: string): Promise<Partia
 
 export async function createNewRestaurant(data: any, myCollection: string): Promise<any> {
   try {
-    const { address, city, postcode } = data;
-    const fullAddress = `${address}, ${city}, ${postcode}`;
+    const { streetAddress, city, postcode } = data;
+    console.log("Address", data);
+    const fullAddress = `${streetAddress}, ${city}, ${postcode}`;
 
     // ✅ Geocoding the address
     const geocodedLocation = await geocodeAddress(fullAddress);
@@ -318,6 +319,8 @@ export async function createNewRestaurant(data: any, myCollection: string): Prom
 
     const { latitude, longitude } = geocodedLocation;
     const newData = { ...data, latitude, longitude };
+
+
 
     // ✅ Adding data to Firebase
     await addDoc(collection(db, myCollection), newData);
