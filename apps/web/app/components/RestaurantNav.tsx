@@ -1,5 +1,6 @@
 import { useRestaurant } from "../../contexts/Restaurantcontext";
 import Styles from "../../styles/restaurant-dashboard.module.scss";
+import Image from "next/image";
 
 export default function RestaurantNav() {
   const { restaurant } = useRestaurant();
@@ -7,6 +8,15 @@ export default function RestaurantNav() {
 
   return (
     <nav className={Styles.restaurantNav}>
+      <Link href="/">
+        <Image
+          src="/logo2.png"
+          alt="Logo"
+          width={100}
+          height={100}
+          className={Styles.logo}
+        />
+      </Link>
       <h1>{name}</h1>
       <div className={Styles.linksContainer}>
         <Link href="/restaurants/[id]" as={`/restaurants/${id}`}>

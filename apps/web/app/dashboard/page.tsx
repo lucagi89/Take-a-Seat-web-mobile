@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { useUser } from "../../contexts/userContext";
 import Styles from "../../styles/dashboard.module.scss";
 import { getUserRestaurants } from "../../lib/databaseActions";
-import { Restaurant } from '../../data/types'
+import { Restaurant } from "../../data/types";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -35,8 +36,6 @@ export default function DashboardPage() {
 
   return (
     <main className={Styles.container}>
-      <h1 className="">Dashboard</h1>
-      <p className="">Welcome to the dashboard!</p>
       {loading ? (
         <p className="text-center">Loading...</p>
       ) : user ? (
@@ -46,41 +45,36 @@ export default function DashboardPage() {
       )}
 
       <h2 className="">Your Restaurants</h2>
-      {userRestaurants ?
+      {userRestaurants ? (
         <ul className={Styles.restaurantList}>
           {userRestaurants.map((restaurant) => (
             <li key={restaurant.id} className={Styles.restaurantItem}>
-              <h3>{restaurant.name}</h3>
-              <p>{restaurant.description}</p>
-              <button
-                onClick={() => router.push(`/restaurants/${restaurant.id}`)}
-                className={Styles.button}
+              <Link
+                href={`/restaurants/${restaurant.id}`}
+                className={Styles.restaurantLink}
               >
-                View
-              </button>
+                <h3>{restaurant.name}</h3>
+                <p>{restaurant.description}</p>
+                <hr />
+              </Link>
             </li>
           ))}
         </ul>
-        : <p className="text-center">No restaurants found.</p>
-      }
-      <h2 className="">Create a New Restaurant</h2>
-      <p className="text-center">
-        If you don&#39;t have any restaurants, you can create one.
-      </p>
+      ) : (
+        <div>
+          <p className="text-center">No restaurants found.</p>
+          <p className="text-center">
+            If you don&#39;t have any restaurants, you can create one.
+          </p>
+        </div>
+      )}
       <button
         onClick={() => router.push("/create-restaurant")}
         className={Styles.button}
       >
-        Create Restaurant
+        Create New Restaurant
       </button>
       <h2 className="">Go to Home</h2>
-      <p className="text-center">
-        You can go back to the home page if you want.
-      </p>
-      <p className="text-center">
-        <strong>Note:</strong> This is a demo application. The data is not
-        persistent and will be reset after a while.
-      </p>
     </main>
   );
 }
