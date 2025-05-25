@@ -1,19 +1,27 @@
 @import './home-page.module.scss';
 
-.container {
+.dashboardContainer {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
   gap: 1rem;
   width: 90%;
   height: 100vh;
   min-width: 600px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 227, 195);
+  z-index: 1000;
   color: black;
+  text-shadow: none;
 }
 
 .button {
   @include button;
   width: 50%;
+}
+
+.sidebar{
+  height:100vh;
+  width: 20%;
+  border-right: 1px solid black;
 }
