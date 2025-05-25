@@ -6,11 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "flowbite-react patch"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
     "firebase": "^11.7.3",
+    "flowbite-react": "^0.11.7",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-datepicker": "^8.3.0",

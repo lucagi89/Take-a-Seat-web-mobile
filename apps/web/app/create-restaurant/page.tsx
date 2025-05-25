@@ -11,7 +11,21 @@ import { useRouter } from "next/navigation";
 // import { handleLogout } from "@/services/auth";
 import { availableKeywords } from "@/data/variables";
 import Styles from "../../styles/create-restaurant.module.scss";
-import { createNewRestaurant } from "../../lib/databaseActions"
+import { createNewRestaurant } from "../../lib/databaseActions";
+
+import { FileInput, HelperText, Label } from "flowbite-react";
+
+// export function Component() {
+//   return (
+//     <div id="fileUpload" className="max-w-md">
+//       <Label className="mb-2 block" htmlFor="file">
+//         Upload file
+//       </Label>
+//       <FileInput id="file" />
+//       <HelperText className="mt-1">A profile picture is useful to confirm your are logged into your account</HelperText>
+//     </div>
+//   );
+// }
 
 // const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
 
@@ -23,8 +37,12 @@ export default function CreateRestaurantPage() {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [openingHours, setOpeningHours] = useState<Date | null>(null);
   const [closingHours, setClosingHours] = useState<Date | null>(null);
-  const [secondOpeningHours, setSecondOpeningHours] = useState<Date | null>(null);
-  const [secondClosingHours, setSecondClosingHours] = useState<Date | null>(null);
+  const [secondOpeningHours, setSecondOpeningHours] = useState<Date | null>(
+    null
+  );
+  const [secondClosingHours, setSecondClosingHours] = useState<Date | null>(
+    null
+  );
 
   const { register, handleSubmit } = useForm();
 
@@ -65,7 +83,7 @@ export default function CreateRestaurantPage() {
     };
 
     console.log("Final restaurant data:", newRestaurant);
-    await createNewRestaurant(newRestaurant, "restaurants")
+    await createNewRestaurant(newRestaurant, "restaurants");
 
     // Call your Firestore function here (e.g. addDoc)
     setUploading(false);
@@ -83,7 +101,11 @@ export default function CreateRestaurantPage() {
 
         <div className={Styles.inputContainer}>
           <label>Street Address</label>
-          <input {...register("streetAddress")} className={Styles.input} required />
+          <input
+            {...register("streetAddress")}
+            className={Styles.input}
+            required
+          />
         </div>
 
         <div className={Styles.inputContainer}>
@@ -105,7 +127,12 @@ export default function CreateRestaurantPage() {
 
         <div className={Styles.inputContainer}>
           <label>Email</label>
-          <input {...register("email")} type="email" className={Styles.input} required />
+          <input
+            {...register("email")}
+            type="email"
+            className={Styles.input}
+            required
+          />
         </div>
         <div className={Styles.inputContainer}>
           <label>Website</label>
@@ -113,7 +140,12 @@ export default function CreateRestaurantPage() {
         </div>
         <div className={`${Styles.inputContainer} ${Styles.inputTextarea}`}>
           <label>Description</label>
-          <textarea {...register("description")} rows={4} className={Styles.input} required />
+          <textarea
+            {...register("description")}
+            rows={4}
+            className={Styles.input}
+            required
+          />
         </div>
         <div className={`${Styles.inputContainer} ${Styles.inputOpeningHours}`}>
           <div className="flex flex-col gap-2">
@@ -163,44 +195,50 @@ export default function CreateRestaurantPage() {
           </div>
         </div>
         <div className={`${Styles.inputContainer} ${Styles.inputKeywords}`}>
-
-        <label>Keywords (up to 3)</label>
-        <div className={Styles.keywordsContainer}>
-          {availableKeywords.map((kw) => (
-            <label key={kw}>
-              <input
-                type="checkbox"
-                checked={keywords.includes(kw)}
-                onChange={() => handleKeywordToggle(kw)}
-                disabled={!keywords.includes(kw) && keywords.length >= 3}
-              />
-              {`     ${kw}`}
-            </label>
-          ))}
+          <label>Keywords (up to 3)</label>
+          <div className={Styles.keywordsContainer}>
+            {availableKeywords.map((kw) => (
+              <label key={kw}>
+                <input
+                  type="checkbox"
+                  checked={keywords.includes(kw)}
+                  onChange={() => handleKeywordToggle(kw)}
+                  disabled={!keywords.includes(kw) && keywords.length >= 3}
+                />
+                {`     ${kw}`}
+              </label>
+            ))}
+          </div>
         </div>
+        {/* <div className={Styles.inputContainer}> */}
+        {/* <label>Images</label>
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={(e) => setImages(Array.from(e.target.files || []))}
+          /> */}
+        <div id="fileUpload" className="max-w-md">
+          <Label className="mb-2 block" htmlFor="file">
+            Upload file
+          </Label>
+          <FileInput id="file" />
+          <HelperText className="mt-1">
+            Add pictures of the restaurant.
+          </HelperText>
         </div>
-        <div className={Styles.inputContainer}>
-
-        <label>Images</label>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={(e) => setImages(Array.from(e.target.files || []))}
-        />
-        </div>
+        {/* </div> */}
 
         <div className={Styles.previewContainer}>
-  {images.map((img, index) => (
-    <img
-      key={index}
-      src={URL.createObjectURL(img)}
-      className={Styles.previewImage}
-      alt="preview"
-    />
-  ))}
-</div>
-
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={URL.createObjectURL(img)}
+              className={Styles.previewImage}
+              alt="preview"
+            />
+          ))}
+        </div>
 
         <button type="submit" className={Styles.button} disabled={uploading}>
           {uploading ? "Creating..." : "Create Restaurant"}
