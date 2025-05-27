@@ -1,4 +1,5 @@
 import Sidebar from "./components/Sidebar";
+import Styles from "../../styles/dashboard.module.scss";
 
 export default function RestaurantLayout({
   children,
@@ -6,11 +7,9 @@ export default function RestaurantLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto">
-        <Sidebar />
-        {children}
-      </div>
+    <div className={Styles.dashboardContainer}>
+      <Sidebar />
+      {children}
     </div>
   );
 }
