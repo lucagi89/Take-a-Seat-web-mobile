@@ -35,7 +35,7 @@ export default function Sidebar() {
           {userRestaurants.map((restaurant) => (
             <li key={restaurant.id} className={Styles.restaurantItem}>
               <Link
-                href={`/restaurants/${restaurant.id}`}
+                href={`dashboard/restaurants/${restaurant.id}`}
                 className={Styles.restaurantLink}
               >
                 <h3>{restaurant.name}</h3>

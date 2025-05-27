@@ -1,14 +1,16 @@
 import Sidebar from "./components/Sidebar";
 
-export default function DashboardLayout({
+export default function RestaurantLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <main className="w-full min-h-screen flex justify-center">
-      <Sidebar />
-      {children}
-    </main>
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto">
+        <Sidebar />
+        {children}
+      </div>
+    </div>
   );
 }
