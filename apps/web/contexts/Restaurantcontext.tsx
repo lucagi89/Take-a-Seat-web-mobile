@@ -1,14 +1,12 @@
-// contexts/RestaurantContext.tsx
 "use client";
-
-import {
+import { getRestaurantById } from "@/lib/databaseActions";
+import React, {
+  useEffect,
+  useState,
+  ReactNode,
   createContext,
   useContext,
-  useState,
-  useEffect,
-  ReactNode,
 } from "react";
-import { getRestaurantById } from "@/lib/databaseActions"; // Adjust import path
 import { DocumentData } from "firebase/firestore";
 
 type RestaurantContextType = {
@@ -16,6 +14,7 @@ type RestaurantContextType = {
   setRestaurant: (r: DocumentData | null) => void;
   loading: boolean;
   restaurantId: string;
+  setRestaurantId: (id: string) => void;
 };
 
 const RestaurantContext = createContext<RestaurantContextType | null>(null);
@@ -28,17 +27,20 @@ export const useRestaurant = () => {
 };
 
 export const RestaurantProvider = ({
-  restaurantId,
+  initialRestaurantId,
   children,
 }: {
-  restaurantId: string;
+  initialRestaurantId: string;
   children: ReactNode;
 }) => {
+  const [restaurantId, setRestaurantId] = useState(initialRestaurantId);
   const [restaurant, setRestaurant] = useState<DocumentData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!restaurantId) return;
+
+    setLoading(true); // ✅ move this here
 
     const fetchRestaurant = async () => {
       try {
@@ -56,7 +58,13 @@ export const RestaurantProvider = ({
 
   return (
     <RestaurantContext.Provider
-      value={{ restaurant, setRestaurant, loading, restaurantId }}
+      value={{
+        restaurant,
+        setRestaurant,
+        loading,
+        restaurantId,
+        setRestaurantId,
+      }}
     >
       {children}
     </RestaurantContext.Provider>

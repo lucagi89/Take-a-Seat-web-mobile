@@ -350,6 +350,23 @@ export const getUserRestaurants = async (userId: string) => {
   }
 };
 
+export const getFirstUserRestaurantId = async (userId: string): Promise<string | null> => {
+  try {
+    const restaurantsRef = collection(db, "restaurants");
+    const q = query(restaurantsRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      const firstRestaurant = querySnapshot.docs[0];
+      return firstRestaurant.id; // Return the ID of the first restaurant
+    }
+    return null; // No restaurants found
+  } catch (error) {
+    console.error("Error fetching first restaurant ID:", error);
+    throw error;
+  }
+};
+
+
 
 export const getRestaurantById = async (restaurantId: string) => {
   try {

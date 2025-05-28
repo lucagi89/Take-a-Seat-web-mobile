@@ -1,3 +1,5 @@
+import RestaurantNavbar from "./components/RestaurantNavbar";
+
 export default function RestaurantLayout({
   children,
 }: {
@@ -5,7 +7,8 @@ export default function RestaurantLayout({
 }) {
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto">{children}</div>
+      <RestaurantNavbar />
+      {children}
     </div>
   );
 }
