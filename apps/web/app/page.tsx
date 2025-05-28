@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import styles from "../styles/home-page.module.scss";
 import { useUser } from "@/contexts/userContext";
@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 export default function HomePage() {
   const { user } = useUser();
   const router = useRouter();
-  if (user) {
-    router.push("/dashboard");
-  }
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
   return (
     <>
       <h1 className={styles.title}>Take a Seat</h1>

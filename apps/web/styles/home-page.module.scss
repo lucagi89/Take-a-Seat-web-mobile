@@ -44,9 +44,9 @@ $font-color: #fdd564;
       cursor: pointer;
       transition: background-color 0.3s;
 
-      &:hover {
-        background-color: darken($font-color, 20%);
-      }
+      // &:hover {
+      //   background-color: darken($font-color, 20%);
+      // }
     }
 
 @mixin title {
