@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getFirstUserRestaurantId } from "../../lib/databaseActions";
+import { getUserRestaurants } from "../../lib/databaseActions";
 
 import Sidebar from "./components/Sidebar";
 import Styles from "../../styles/dashboard.module.scss";
@@ -14,28 +14,26 @@ export default function RestaurantLayout({
   children: React.ReactNode;
 }) {
   const { user } = useUser();
-  const [firstUserRestaurant, setFirstUserRestaurant] = useState<string | null>(
-    null
-  );
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    const fetchFirstRestaurant = async () => {
+    const userRestaurants = async () => {
       if (user) {
         try {
-          const restaurantId = await getFirstUserRestaurantId(user.uid);
-          setFirstUserRestaurant(restaurantId);
+          const userRestaurants = await getUserRestaurants(user.uid);
+          setRestaurants(userRestaurants);
         } catch (error) {
-          console.error("Error fetching first restaurant:", error);
+          console.error("Error fetching user's first restaurant:", error);
         }
       }
     };
-    fetchFirstRestaurant();
+    userRestaurants();
   }, [user]);
 
   return (
     <div className={Styles.dashboardContainer}>
-      <RestaurantProvider initialRestaurantId={firstUserRestaurant ?? ""}>
-        <Sidebar />
+      <RestaurantProvider initialRestaurantId={restaurants[0] ?? ""}>
+        {restaurants.length > 1 && <Sidebar />}
         {children}
       </RestaurantProvider>
     </div>

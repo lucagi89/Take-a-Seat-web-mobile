@@ -50,7 +50,6 @@ export default function Sidebar() {
                 className={Styles.restaurantLink}
               >
                 <h3>{restaurant.name}</h3>
-                <p>{restaurant.description}</p>
                 <hr />
               </button>
             </li>
