@@ -6,13 +6,18 @@ import { useUser } from "@/contexts/userContext";
 import Styles from "../../styles/login-signup.module.scss";
 
 export default function LoginPage() {
-  const { user, loading, setLoading } = useUser();
+  const { user, loading, setLoading, userRestaurants } = useUser();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (user) {
-    router.push("/dashboard");
+    if (userRestaurants && userRestaurants.length > 0) {
+      router.push(`/dashboard/${userRestaurants[0].id}`);
+    } else {
+      router.push("/dashboard");
+    }
+    return null; // Prevent rendering the form if user is already logged in
   }
 
   const handleLogin = (e: React.FormEvent) => {
@@ -22,7 +27,13 @@ export default function LoginPage() {
       .then((response) => {
         console.log("Login successful:", response);
         // Handle successful login (e.g., redirect to dashboard)
-        router.push("/dashboard");
+        if (userRestaurants && userRestaurants.length > 0) {
+          router.push(`/dashboard/${userRestaurants[0].id}`);
+        } else {
+          router.push("/dashboard");
+        }
+        setEmail("");
+        setPassword("");
       })
       .catch((error) => {
         console.error("Login error:", error);
