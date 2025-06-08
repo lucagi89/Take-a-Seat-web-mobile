@@ -2,17 +2,21 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../lib/firebase.config"; // your Firebase config
+import { getUserRestaurants } from "../lib/databaseActions"; // your function to get user restaurants
+import { Restaurant } from "../data/types"; // your Restaurant type
 
 interface UserContextType {
   user: User | null;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  userRestaurants: Restaurant[];
 }
 
 const UserContext = createContext<UserContextType>({
   user: null,
   loading: true,
   setLoading: () => {},
+  userRestaurants: [],
 });
 
 export const UserContextProvider = ({
@@ -22,6 +26,7 @@ export const UserContextProvider = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userRestaurants, setUserRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -32,8 +37,20 @@ export const UserContextProvider = ({
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    // This effect runs when the user state changes
+    if (user) {
+      const restaurants = getUserRestaurants(user.uid);
+      setUserRestaurants(restaurants);
+    } else {
+      console.log("No user logged in");
+    }
+  }, [user]);
+
   return (
-    <UserContext.Provider value={{ user, loading, setLoading }}>
+    <UserContext.Provider
+      value={{ user, loading, setLoading, userRestaurants }}
+    >
       {children}
     </UserContext.Provider>
   );
