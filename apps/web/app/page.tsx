@@ -6,13 +6,28 @@ import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-  const { user } = useUser();
+  const { user, userRestaurants, loading } = useUser();
   const router = useRouter();
+
+  // Debugging: Log user and userRestaurants to the consol
+  console.log("User Restaurants:", userRestaurants);
+
   useEffect(() => {
+    if (loading) return;
     if (user) {
-      router.push("/dashboard");
+      // If the user is logged in, redirect to the dashboard of the first restaurant
+      if (userRestaurants && userRestaurants.length > 0) {
+        router.push(`/dashboard/${userRestaurants[0].id}`);
+      } else {
+        router.push("/dashboard");
+      }
     }
-  }, [user, router]);
+  }, [user, loading, userRestaurants, router]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading state while fetching user data
+  }
+
   return (
     <>
       <h1 className={styles.title}>Take a Seat</h1>

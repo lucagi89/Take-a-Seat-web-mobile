@@ -38,15 +38,26 @@ export const UserContextProvider = ({
   }, []);
 
   useEffect(() => {
-    // This effect runs when the user state changes
-    if (user) {
-      const restaurants = getUserRestaurants(user.uid);
-      setUserRestaurants(restaurants);
-    } else {
-      console.log("No user logged in");
+    if (!loading) {
+      setLoading(true);
     }
-  }, [user]);
+    const fetchRestaurants = async () => {
+      if (user) {
+        try {
+          const restaurants = await getUserRestaurants(user.uid);
+          setUserRestaurants(restaurants);
+        } catch (error) {
+          console.error("Failed to fetch user restaurants", error);
+          setUserRestaurants([]); // fallback to empty
+        }
+      } else {
+        setUserRestaurants([]);
+      }
+    };
 
+    fetchRestaurants();
+    setLoading(false);
+  }, [user]);
   return (
     <UserContext.Provider
       value={{ user, loading, setLoading, userRestaurants }}
