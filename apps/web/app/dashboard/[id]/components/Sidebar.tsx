@@ -1,11 +1,11 @@
 "use client";
 // import { useEffect, useState } from "react";
-import Styles from "../../../styles/restaurant-dashboard.module.scss";
+import Styles from "../../../../styles/restaurant-dashboard.module.scss";
 // import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Restaurant } from "../../../data/types";
-import { useRestaurant } from "../../../contexts/RestaurantContext";
-import { useUser } from "../../../contexts/userContext";
+import { Restaurant } from "../../../../data/types";
+import { useRestaurant } from "../../../../contexts/RestaurantContext";
+import { useUser } from "../../../../contexts/userContext";
 // import { getUserRestaurants } from "../../../lib/databaseActions";
 
 export default function Sidebar() {

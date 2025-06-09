@@ -4,7 +4,7 @@ import RestaurantNavbar from "./components/RestaurantNavbar";
 import Styles from "../../../styles/restaurant-dashboard.module.scss";
 import { useParams } from "next/navigation";
 
-import Sidebar from "../components/Sidebar";
+import Sidebar from "./components/Sidebar";
 
 import { RestaurantProvider } from "../../../contexts/RestaurantContext";
 import { useUser } from "../../../contexts/userContext";

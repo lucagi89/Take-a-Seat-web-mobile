@@ -1,3 +1,4 @@
+"use client";
 import { useRestaurant } from "../../../../contexts/RestaurantContext";
 
 export default function FloorplanPage() {
