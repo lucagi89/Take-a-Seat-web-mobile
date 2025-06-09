@@ -13,6 +13,7 @@ export default function RestaurantPage() {
   );
 
   const { id } = useParams();
+  console.log("RestaurantPage rendered with ID:", id);
 
   if (loading) {
     return <div>Loading...</div>; // Show a loading state while fetching user data

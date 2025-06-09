@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { handleUser } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
@@ -11,37 +11,41 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  if (user) {
-    if (userRestaurants && userRestaurants.length > 0) {
-      router.push(`/dashboard/${userRestaurants[0].id}`);
-    } else {
-      router.push("/dashboard");
+  useEffect(() => {
+    if (!loading && user) {
+      if (userRestaurants && userRestaurants.length > 0) {
+        router.push(`/dashboard/${userRestaurants[0].id}`);
+      } else {
+        router.push("/dashboard");
+      }
     }
-    return null; // Prevent rendering the form if user is already logged in
-  }
+  }, [user, loading, userRestaurants]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     handleUser(email, password)
-      .then((response) => {
-        console.log("Login successful:", response);
-        // Handle successful login (e.g., redirect to dashboard)
-        if (userRestaurants && userRestaurants.length > 0) {
-          router.push(`/dashboard/${userRestaurants[0].id}`);
-        } else {
-          router.push("/dashboard");
-        }
+      .then(() => {
+        // Successful login — user & restaurants will be updated by context
         setEmail("");
         setPassword("");
       })
       .catch((error) => {
         console.error("Login error:", error);
-        // Handle login error (e.g., show error message)
         alert("Login failed. Please check your credentials.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <>
