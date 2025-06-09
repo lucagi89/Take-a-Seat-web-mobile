@@ -19,7 +19,12 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   }, [user, loading, isLoginPage, router]);
 
   if ((loading || !user) && !isLoginPage) {
-    return null; // You can also return a loading spinner here
+    //return a loading spinner here
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+      </div>
+    );
   }
 
   return <>{children}</>;

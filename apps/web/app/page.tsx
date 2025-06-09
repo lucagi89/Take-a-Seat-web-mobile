@@ -18,8 +18,6 @@ export default function HomePage() {
       // If the user is logged in, redirect to the dashboard of the first restaurant
       if (userRestaurants && userRestaurants.length > 0) {
         router.push(`/dashboard/${userRestaurants[0].id}`);
-      } else {
-        router.push("/dashboard");
       }
     }
   }, [user, loading, userRestaurants, router]);

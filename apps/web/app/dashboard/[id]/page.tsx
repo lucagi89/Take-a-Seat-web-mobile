@@ -7,13 +7,11 @@ import { useUser } from "../../../contexts/userContext";
 export default function RestaurantPage() {
   const { userRestaurants, loading } = useUser();
   const params = useParams();
+  const { id } = params;
 
   const currentRestaurant = userRestaurants?.find(
-    (restaurant) => restaurant.id === params.id
+    (restaurant) => restaurant.id === id
   );
-
-  const { id } = useParams();
-  console.log("RestaurantPage rendered with ID:", id);
 
   if (loading) {
     return <div>Loading...</div>; // Show a loading state while fetching user data
@@ -28,7 +26,6 @@ export default function RestaurantPage() {
       <div className="flex-1 overflow-y-auto">
         <h1 className="text-2xl font-bold">{currentRestaurant?.name}</h1>
         <p>Welcome to the restaurant dashboard!</p>
-        {/* Add more content or components as needed */}
       </div>
     </div>
   );

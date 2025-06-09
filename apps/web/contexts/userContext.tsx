@@ -57,7 +57,8 @@ export const UserContextProvider = ({
 
     fetchRestaurants();
     setLoading(false);
-  }, [user]);
+  }, [user, loading]);
+
   return (
     <UserContext.Provider
       value={{ user, loading, setLoading, userRestaurants }}

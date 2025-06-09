@@ -15,8 +15,6 @@ export default function LoginPage() {
     if (!loading && user) {
       if (userRestaurants && userRestaurants.length > 0) {
         router.push(`/dashboard/${userRestaurants[0].id}`);
-      } else {
-        router.push("/dashboard");
       }
     }
   }, [user, loading, userRestaurants]);

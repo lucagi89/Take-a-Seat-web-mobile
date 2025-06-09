@@ -1,55 +1,42 @@
 "use client";
-import { useEffect, useState } from "react";
-import Styles from "../../../styles/dashboard.module.scss";
+// import { useEffect, useState } from "react";
+import Styles from "../../../styles/restaurant-dashboard.module.scss";
 // import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Restaurant } from "../../../data/types";
 import { useRestaurant } from "../../../contexts/RestaurantContext";
 import { useUser } from "../../../contexts/userContext";
-import { getUserRestaurants } from "../../../lib/databaseActions";
+// import { getUserRestaurants } from "../../../lib/databaseActions";
 
 export default function Sidebar() {
   const router = useRouter();
   const { setRestaurant } = useRestaurant();
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-  const handleRestaurantClick = (restaurantId: string) => {
-    setRestaurant({ id: restaurantId });
+  const handleRestaurantClick = (restaurant: Restaurant) => {
+    setRestaurant(restaurant || null);
+    const restaurantId = restaurant.id;
+    if (!restaurantId) {
+      console.error("Restaurant ID is missing");
+      return;
+    }
     router.push(`/dashboard/${restaurantId}`);
   };
 
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      const fetchRestaurants = async () => {
-        try {
-          const userRestaurants = await getUserRestaurants(user.uid);
-          if (userRestaurants) {
-            setRestaurants(userRestaurants);
-          } else {
-            console.warn("No restaurants found for user.");
-          }
-        } catch (error) {
-          console.error("Error fetching restaurants:", error);
-        }
-      };
-      fetchRestaurants();
-    }
-  }, [user]);
+  const { userRestaurants } = useUser();
 
   return (
     <div className={Styles.sidebar}>
       <h2 className="">Your Restaurants</h2>
-      {restaurants ? (
+      {userRestaurants ? (
         <ul className={Styles.restaurantList}>
-          {restaurants.map((restaurant) => (
+          {userRestaurants.map((restaurant) => (
             <li key={restaurant.id} className={Styles.restaurantItem}>
               <button
-                onClick={() => handleRestaurantClick(restaurant.id)}
+                onClick={() => handleRestaurantClick(restaurant)}
                 className={Styles.restaurantLink}
               >
                 <h3>{restaurant.name}</h3>
+
                 <hr />
               </button>
             </li>
