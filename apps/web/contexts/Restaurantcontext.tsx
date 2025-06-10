@@ -54,7 +54,33 @@ export const RestaurantProvider = ({
 
     setLoading(true);
 
-    setLoading(false);
+    const fetchRestaurantData = async () => {
+      setLoading(true);
+      try {
+        const restaurant = await getRestaurantById(restaurantId);
+        if (!restaurant) {
+          throw new Error("Restaurant not found");
+        }
+
+        const bookings = await getRestaurantBookings(restaurantId);
+        const reviews = await getRestaurantReviews(restaurantId);
+        const dishes = await getRestaurantDishes(restaurantId);
+        const tables = await getRestaurantTables(restaurantId);
+
+        setRestaurantData({
+          data: restaurant,
+          bookings,
+          reviews,
+          dishes,
+          tables,
+        });
+      } catch (error) {
+        console.error("Error fetching restaurant data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRestaurantData();
   }, [restaurantId]);
 
   return (
