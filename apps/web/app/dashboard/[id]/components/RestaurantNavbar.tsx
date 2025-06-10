@@ -15,6 +15,7 @@ export default function RestaurantNavbar() {
       <Link href={`/dashboard/${id}`}>Restaurant</Link>
       <Link href={`/dashboard/${id}/floorplan`}>Floorplan</Link>
       <Link href={`/dashboard/${id}/tables-list`}>Tables List</Link>
+      <Link href={`/dashboard/${id}/bookings`}>Bookings</Link>
       <Link href={`/dashboard/${id}/menu`}>Menu</Link>
     </div>
   );

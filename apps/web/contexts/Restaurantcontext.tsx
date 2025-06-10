@@ -16,8 +16,9 @@ import {
 } from "../lib/databaseActions";
 
 type RestaurantContextType = {
-  restaurantData: DocumentData | null;
+  restaurant: DocumentData | null;
   setRestaurant: (r: DocumentData | null) => void;
+  restaurantSchema: DocumentData | null;
   loading: boolean;
   restaurantId: string;
   setRestaurantId: (id: string) => void;
@@ -40,13 +41,10 @@ export const RestaurantProvider = ({
   children: ReactNode;
 }) => {
   const [restaurantId, setRestaurantId] = useState(initialRestaurantId);
-  const [restaurantData, setRestaurantData] = useState<DocumentData | null>({
-    data: null,
-    bookings: [],
-    reviews: [],
-    dishes: [],
-    tables: [],
-  });
+  const [restaurant, setRestaurant] = useState<DocumentData | null>(null);
+  const [restaurantSchema, setRestaurantSchema] = useState<DocumentData | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,19 +54,21 @@ export const RestaurantProvider = ({
 
     const fetchRestaurantData = async () => {
       setLoading(true);
+
       try {
         const restaurant = await getRestaurantById(restaurantId);
         if (!restaurant) {
           throw new Error("Restaurant not found");
         }
+        setRestaurant(restaurant);
+        setRestaurantId(restaurant.id);
 
         const bookings = await getRestaurantBookings(restaurantId);
         const reviews = await getRestaurantReviews(restaurantId);
         const dishes = await getRestaurantDishes(restaurantId);
         const tables = await getRestaurantTables(restaurantId);
 
-        setRestaurantData({
-          data: restaurant,
+        setRestaurantSchema({
           bookings,
           reviews,
           dishes,
@@ -88,6 +88,7 @@ export const RestaurantProvider = ({
       value={{
         restaurant,
         setRestaurant,
+        restaurantSchema,
         loading,
         restaurantId,
         setRestaurantId,

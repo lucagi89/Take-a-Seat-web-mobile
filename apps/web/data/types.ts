@@ -132,4 +132,6 @@ export interface Booking {
   userId: string;
   reservationTime: string;
   reservationDate: string;
+  bookedTime: string;
+  isApproved: boolean;
 }
