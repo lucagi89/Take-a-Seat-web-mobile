@@ -58,6 +58,8 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             className={Styles.input}
             required
+            autoComplete="email"
+            placeholder="my@email.com"
           />
         </div>
 
@@ -69,6 +71,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             className={Styles.input}
             required
+            autoComplete="current-password"
           />
         </div>
 
