@@ -8,9 +8,15 @@ import React, {
   useContext,
 } from "react";
 import { DocumentData } from "firebase/firestore";
+import {
+  getRestaurantBookings,
+  getRestaurantDishes,
+  getRestaurantReviews,
+  getRestaurantTables,
+} from "../lib/databaseActions";
 
 type RestaurantContextType = {
-  restaurant: DocumentData | null;
+  restaurantData: DocumentData | null;
   setRestaurant: (r: DocumentData | null) => void;
   loading: boolean;
   restaurantId: string;
@@ -34,26 +40,21 @@ export const RestaurantProvider = ({
   children: ReactNode;
 }) => {
   const [restaurantId, setRestaurantId] = useState(initialRestaurantId);
-  const [restaurant, setRestaurant] = useState<DocumentData | null>(null);
+  const [restaurantData, setRestaurantData] = useState<DocumentData | null>({
+    data: null,
+    bookings: [],
+    reviews: [],
+    dishes: [],
+    tables: [],
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!restaurantId) return;
 
-    setLoading(true); // ✅ move this here
+    setLoading(true);
 
-    const fetchRestaurant = async () => {
-      try {
-        const data = await getRestaurantById(restaurantId);
-        setRestaurant(data || null);
-      } catch (error) {
-        console.error("Error fetching restaurant:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRestaurant();
+    setLoading(false);
   }, [restaurantId]);
 
   return (

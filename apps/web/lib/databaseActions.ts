@@ -383,6 +383,70 @@ export const getRestaurantById = async (restaurantId: string) => {
   }
 };
 
+export const getRestaurantBookings = async (restaurantId: string) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("restaurantId", "==", restaurantId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return bookings;
+  } catch (error) {
+    console.error("Error fetching restaurant bookings:", error);
+    throw error;
+  }
+};
+
+export const getRestaurantTables = async (restaurantId: string): Promise<Table[]> => {
+  try {
+    const tablesRef = collection(db, "restaurantTables");
+    const q = query(tablesRef, where("restaurantId", "==", restaurantId));
+    const querySnapshot = await getDocs(q);
+    const tables: Table[] = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return tables;
+  } catch (error) {
+    console.error("Error fetching restaurant tables:", error);
+    throw error;
+  }
+};
+
+export const getRestaurantDishes = async (restaurantId: string): Promise<Dish[]> => {
+  try {
+    const dishesRef = collection(db, "dishes");
+    const q = query(dishesRef, where("restaurantId", "==", restaurantId));
+    const querySnapshot = await getDocs(q);
+    const dishes: Dish[] = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return dishes;
+  } catch (error) {
+    console.error("Error fetching restaurant dishes:", error);
+    throw error;
+  }
+};
+
+export const getRestaurantReviews = async (restaurantId: string): Promise<Review[]> => {
+  try {
+    const reviewsRef = collection(db, "reviews");
+    const q = query(reviewsRef, where("restaurantId", "==", restaurantId));
+    const querySnapshot = await getDocs(q);
+    const reviews: Review[] = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return reviews;
+  } catch (error) {
+    console.error("Error fetching restaurant reviews:", error);
+    throw error;
+  }
+};
+
 
 
 // Helper to fetch the current favourites array (or [])
