@@ -1,21 +1,19 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../lib/firebase.config"; // your Firebase config
-import { getUserRestaurants } from "../lib/databaseActions"; // your function to get user restaurants
-import { Restaurant } from "../data/types"; // your Restaurant type
+import { auth } from "../lib/firebase.config";
+import { getUserRestaurants } from "../lib/databaseActions";
+import { Restaurant } from "../data/types";
 
 interface UserContextType {
   user: User | null;
   loading: boolean;
-  setLoading: (loading: boolean) => void;
   userRestaurants: Restaurant[];
 }
 
 const UserContext = createContext<UserContextType>({
   user: null,
   loading: true,
-  setLoading: () => {},
   userRestaurants: [],
 });
 
@@ -31,38 +29,32 @@ export const UserContextProvider = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser ?? null);
-      setLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (!loading) {
-      setLoading(true);
-    }
     const fetchRestaurants = async () => {
+      setLoading(true); // ✅ set loading at start of async call
       if (user) {
         try {
           const restaurants = await getUserRestaurants(user.uid);
           setUserRestaurants(restaurants);
         } catch (error) {
           console.error("Failed to fetch user restaurants", error);
-          setUserRestaurants([]); // fallback to empty
+          setUserRestaurants([]);
         }
       } else {
         setUserRestaurants([]);
       }
+      setLoading(false); // ✅ only set to false after everything is done
     };
 
     fetchRestaurants();
-    setLoading(false);
-  }, [user, loading]);
+  }, [user]); // ✅ Only depend on `user`
 
   return (
-    <UserContext.Provider
-      value={{ user, loading, setLoading, userRestaurants }}
-    >
+    <UserContext.Provider value={{ user, loading, userRestaurants }}>
       {children}
     </UserContext.Provider>
   );
