@@ -16,7 +16,7 @@ import { useLocation } from "../hooks/useLocation";
 import { useRestaurants } from "../hooks/useRestaurants";
 import { fetchUserData } from "../services/databaseActions";
 import { useSidebarAnimation } from "../hooks/useSidebarAnimation";
-import { Sidebar } from "../app/sidebar";
+// import { Sidebar } from "../app/sidebar/Sidebar";
 import { styles } from "../styles/main-page-style";
 
 export default function Map() {
@@ -86,7 +86,7 @@ export default function Map() {
 
           <TouchableOpacity
             style={styles.menuButton}
-            onPress={() => router.push("/profile")}
+            onPress={() => console.log("Menu button pressed")}
           >
             <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
