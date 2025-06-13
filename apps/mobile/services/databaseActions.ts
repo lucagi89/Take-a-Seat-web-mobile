@@ -11,7 +11,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../scripts/firebase.config.js";
-import {geocodeAddress} from "./geolocation.js";
+import {geocodeAddress} from "./geolocation";
 import { Restaurant, Dish, Review, Table, User } from "../data/types.js";
 import { getAuth } from "firebase/auth";
 import { deleteUser as deleteFirebaseUser } from "firebase/auth";

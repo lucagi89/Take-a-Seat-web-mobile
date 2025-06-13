@@ -72,6 +72,7 @@ export default function Map() {
                 pinColor={restaurant.isAvailable ? "green" : "red"}
               >
                 <Callout
+                  tooltip={false}
                   onPress={() => restaurantSelectionHandler(restaurant.id)}
                 >
                   <View>
@@ -84,12 +85,22 @@ export default function Map() {
             ))}
           </MapView>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => console.log("Menu button pressed")}
+          <View
+            pointerEvents="box-none"
+            style={{
+              position: "absolute",
+              top: 50,
+              left: 20,
+              zIndex: 999,
+            }}
           >
-            <Ionicons name="menu" size={32} color="white" />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => console.log("Menu button pressed")}
+            >
+              <Ionicons name="menu" size={32} color="white" />
+            </TouchableOpacity>
+          </View>
           {/* <Sidebar user={user} userData={userData} router={router} /> */}
         </>
       )}
