@@ -73,12 +73,25 @@ export default function Map() {
               >
                 <Callout
                   tooltip={false}
-                  onPress={() => restaurantSelectionHandler(restaurant.id)}
+                  onPress={() => {
+                    alert(
+                      `You selected ${restaurant.name}. This will navigate you to the restaurant details page.`
+                    );
+                    restaurantSelectionHandler(restaurant.id);
+                  }}
                 >
                   <View>
                     <Text style={styles.calloutTitle}>{restaurant.name}</Text>
                     <Text>{restaurant.streetAddress}</Text>
-                    <Text>{`${restaurant.cuisine_one}, ${restaurant.cuisine_two}, ${restaurant.cuisine_three}`}</Text>
+                    <Text>
+                      {[
+                        restaurant.cuisine_one,
+                        restaurant.cuisine_two,
+                        restaurant.cuisine_three,
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </Text>
                   </View>
                 </Callout>
               </Marker>
