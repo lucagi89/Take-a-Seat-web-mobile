@@ -6,9 +6,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Map from "../components/map";
 import { UserContextProvider } from "../contexts/userContext";
 import AuthGate from "@/contexts/AuthGate";
+import { useRouter } from "expo-router";
 
 export default function RootLayout() {
   const segments = useSegments();
+  const router = useRouter();
 
   const isRoot = segments.length === 0 || segments[0] === "";
 
@@ -31,13 +33,15 @@ export default function RootLayout() {
             }}
             onPress={() => {
               console.log("Menu Pressed");
+              // Navigate to the menu page
+              router.push("/menu");
             }}
           >
             <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
 
           {/* 2. Only show overlay when not on root route */}
-          {/* {!isRoot && (
+          {!isRoot && (
             <View style={styles.overlayWrapper} pointerEvents="box-none">
               <View style={styles.dim} pointerEvents="none" />
 
@@ -47,7 +51,7 @@ export default function RootLayout() {
                 </SafeAreaView>
               </View>
             </View>
-          )} */}r
+          )}
         </View>
       </AuthGate>
     </UserContextProvider>

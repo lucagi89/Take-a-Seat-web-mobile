@@ -74,9 +74,6 @@ export default function Map() {
                 <Callout
                   tooltip={false}
                   onPress={() => {
-                    alert(
-                      `You selected ${restaurant.name}. This will navigate you to the restaurant details page.`
-                    );
                     restaurantSelectionHandler(restaurant.id);
                   }}
                 >
