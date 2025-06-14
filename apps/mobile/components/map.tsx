@@ -104,12 +104,12 @@ export default function Map() {
               zIndex: 999,
             }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.menuButton}
-              onPress={() => console.log("Menu button pressed")}
+              onPress={() => router.push("/menu")}
             >
               <Ionicons name="menu" size={32} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {/* <Sidebar user={user} userData={userData} router={router} /> */}
         </>

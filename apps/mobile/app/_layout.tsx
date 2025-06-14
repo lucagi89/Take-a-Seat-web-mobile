@@ -1,18 +1,20 @@
 // app/_layout.tsx
 import React from "react";
-import { Slot, useSegments } from "expo-router";
+import { Slot } from "expo-router";
 import { View, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Map from "../components/map";
 import { UserContextProvider } from "../contexts/userContext";
 import AuthGate from "@/contexts/AuthGate";
 import { useRouter } from "expo-router";
+import { usePathname } from "expo-router";
 
 export default function RootLayout() {
-  const segments = useSegments();
+  // const segments = useSegments();
+  const pathname = usePathname();
   const router = useRouter();
 
-  const isRoot = segments.length === 0 || segments[0] === "";
+  const isRoot = pathname === "/";
 
   return (
     <UserContextProvider>
@@ -32,9 +34,7 @@ export default function RootLayout() {
               zIndex: 10,
             }}
             onPress={() => {
-              console.log("Menu Pressed");
-              // Navigate to the menu page
-              router.push("/menu");
+              router.replace("/menu");
             }}
           >
             <Ionicons name="menu" size={32} color="white" />
