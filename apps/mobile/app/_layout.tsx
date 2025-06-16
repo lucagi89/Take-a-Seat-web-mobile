@@ -3,7 +3,7 @@ import React from "react";
 import { Slot } from "expo-router";
 import { View, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Map from "../components/map";
+import PesistentMap from "../components/map";
 import { UserContextProvider } from "../contexts/userContext";
 import AuthGate from "@/contexts/AuthGate";
 import { useRouter } from "expo-router";
@@ -15,13 +15,16 @@ export default function RootLayout() {
   const router = useRouter();
 
   const isRoot = pathname === "/";
+  const menuOpen = pathname === "/menu";
 
   return (
     <UserContextProvider>
       <AuthGate>
         <View style={styles.container}>
           {/* 1. Always show the map */}
-          <Map />
+          <PesistentMap />
+
+          {/* 3. Show the slot for nested routes */}
 
           <TouchableOpacity
             style={{
@@ -34,7 +37,11 @@ export default function RootLayout() {
               zIndex: 10,
             }}
             onPress={() => {
-              router.replace("/menu");
+              if (!menuOpen) {
+                router.replace("/menu");
+              } else {
+                router.replace("/");
+              }
             }}
           >
             <Ionicons name="menu" size={32} color="white" />

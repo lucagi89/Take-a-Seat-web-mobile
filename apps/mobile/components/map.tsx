@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -24,6 +24,7 @@ export default function Map() {
   const { user, userData, loading } = useUser();
   const { region, setRegion, loading: locationLoading } = useLocation();
   const { visibleRestaurants } = useRestaurants(region);
+  const lastRegionRef = useRef<Region | null>(null);
 
   const restaurantSelectionHandler = async (restaurantId: string) => {
     if (!user) {
@@ -32,7 +33,7 @@ export default function Map() {
     }
     const userHasData = await fetchUserData(user.uid);
     if (userHasData) {
-      router.push(`/restaurant/${restaurantId}`);
+      router.replace(`/restaurant/${restaurantId}`);
     } else {
       Alert.alert("Complete Profile", "Please complete your profile.");
       router.push("/complete-profile");
@@ -50,7 +51,7 @@ export default function Map() {
   return (
     // <SafeAreaView style={styles.safeArea}>
     <View style={styles.container}>
-      {region && (
+      {region && visibleRestaurants.length > 0 && (
         <>
           <MapView
             style={styles.map}
@@ -59,7 +60,8 @@ export default function Map() {
             showsCompass
             region={region}
             onRegionChangeComplete={(newRegion) => {
-              setRegion(newRegion);
+              lastRegionRef.current = newRegion; // update without re-render
+              setRegion(newRegion); // if you're syncing with state too
             }}
           >
             {visibleRestaurants.map((restaurant) => (
