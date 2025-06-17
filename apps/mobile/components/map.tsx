@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -23,8 +23,19 @@ export default function Map() {
   const router = useRouter();
   const { user, userData, loading } = useUser();
   const { region, setRegion, loading: locationLoading } = useLocation();
-  const { visibleRestaurants } = useRestaurants(region);
-  const lastRegionRef = useRef<Region | null>(null);
+  const initialRegion = useMemo(() => region, []);
+  const [mapRegion, setMapRegion] = useState<Region | null>(initialRegion);
+
+  console.log("region", region);
+  console.log("mapRegion", mapRegion);
+
+  const { visibleRestaurants } = useRestaurants(mapRegion ?? region);
+
+  useEffect(() => {
+    if (region && !mapRegion) {
+      setMapRegion(region);
+    }
+  }, [region, mapRegion]);
 
   const restaurantSelectionHandler = async (restaurantId: string) => {
     if (!user) {
@@ -51,17 +62,17 @@ export default function Map() {
   return (
     // <SafeAreaView style={styles.safeArea}>
     <View style={styles.container}>
-      {region && visibleRestaurants.length > 0 && (
+      {mapRegion && (
         <>
           <MapView
             style={styles.map}
             showsUserLocation
             showsMyLocationButton
             showsCompass
-            region={region}
+            region={mapRegion}
             onRegionChangeComplete={(newRegion) => {
-              lastRegionRef.current = newRegion; // update without re-render
-              setRegion(newRegion); // if you're syncing with state too
+              setMapRegion(newRegion);
+              setRegion(newRegion); // if you still want to sync with global location state
             }}
           >
             {visibleRestaurants.map((restaurant) => (
