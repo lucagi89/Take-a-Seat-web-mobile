@@ -26,7 +26,7 @@ export default function RootLayout() {
 
           {/* 3. Show the slot for nested routes */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               position: "absolute",
               bottom: 20,
@@ -45,7 +45,7 @@ export default function RootLayout() {
             }}
           >
             <Ionicons name="menu" size={32} color="white" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {/* 2. Only show overlay when not on root route */}
           {!isRoot && (

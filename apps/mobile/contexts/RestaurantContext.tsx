@@ -1,8 +1,8 @@
+import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { getRestaurantById } from "../services/databaseActions";
-import { DocumentData } from "firebase/firestore";
-import { RestaurantContextType } from "../data/types";
+import { RestaurantContextType, Restaurant } from "../data/types";
 
 const RestaurantContext = createContext<RestaurantContextType | null>(null);
 
@@ -13,7 +13,7 @@ import { ReactNode } from "react";
 export const RestaurantProvider = ({ children }: { children: ReactNode }) => {
   const { id } = useLocalSearchParams(); // ✅ Get ID directly from URL
   const restaurantId = id as string;
-  const [restaurant, setRestaurant] = useState<DocumentData | null>(null);
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const RestaurantProvider = ({ children }: { children: ReactNode }) => {
     const fetchRestaurant = async () => {
       try {
         const data = await getRestaurantById(Array.isArray(id) ? id[0] : id);
-        setRestaurant(data || null);
+        setRestaurant((data as Restaurant) || null);
       } catch (error) {
         console.error("Error fetching restaurant:", error);
       } finally {

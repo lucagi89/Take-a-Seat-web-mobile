@@ -4,10 +4,8 @@ import {
   View,
   ActivityIndicator,
   Alert,
-  TouchableOpacity,
   Text,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import MapView, { Marker, Callout } from "react-native-maps";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -15,27 +13,39 @@ import { useUser } from "../contexts/userContext";
 import { useLocation } from "../hooks/useLocation";
 import { useRestaurants } from "../hooks/useRestaurants";
 import { fetchUserData } from "../services/databaseActions";
-import { useSidebarAnimation } from "../hooks/useSidebarAnimation";
-// import { Sidebar } from "../app/sidebar/Sidebar";
 import { styles } from "../styles/main-page-style";
+
+interface Region {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
 
 export default function Map() {
   const router = useRouter();
   const { user, userData, loading } = useUser();
-  const { region, setRegion, loading: locationLoading } = useLocation();
-  const initialRegion = useMemo(() => region, []);
-  const [mapRegion, setMapRegion] = useState<Region | null>(initialRegion);
+  const fallbackRegion: Region = {
+    latitude: 51.5074,
+    longitude: -0.1278,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
-  console.log("region", region);
-  console.log("mapRegion", mapRegion);
+  const { region, setRegion, loading: locationLoading } = useLocation();
+
+  const [mapRegion, setMapRegion] = useState<Region | null>(
+    region || fallbackRegion
+  );
 
   const { visibleRestaurants } = useRestaurants(mapRegion ?? region);
 
   useEffect(() => {
-    if (region && !mapRegion) {
+    if (region) {
       setMapRegion(region);
     }
-  }, [region, mapRegion]);
+  }, [region]);
 
   const restaurantSelectionHandler = async (restaurantId: string) => {
     if (!user) {
@@ -62,6 +72,15 @@ export default function Map() {
   return (
     // <SafeAreaView style={styles.safeArea}>
     <View style={styles.container}>
+      <View style={styles.menuButtonWrapper}>
+        <Ionicons
+          name="menu"
+          size={32}
+          color="white"
+          onPress={() => setSidebarVisible((prev) => !prev)}
+        />
+      </View>
+
       {mapRegion && (
         <>
           <MapView
@@ -93,39 +112,30 @@ export default function Map() {
                   <View>
                     <Text style={styles.calloutTitle}>{restaurant.name}</Text>
                     <Text>{restaurant.streetAddress}</Text>
-                    <Text>
-                      {[
-                        restaurant.cuisine_one,
-                        restaurant.cuisine_two,
-                        restaurant.cuisine_three,
-                      ]
-                        .filter(Boolean)
-                        .join(", ")}
-                    </Text>
                   </View>
                 </Callout>
               </Marker>
             ))}
           </MapView>
-
-          <View
-            pointerEvents="box-none"
-            style={{
-              position: "absolute",
-              top: 50,
-              left: 20,
-              zIndex: 999,
-            }}
-          >
-            {/* <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => router.push("/menu")}
-            >
-              <Ionicons name="menu" size={32} color="white" />
-            </TouchableOpacity> */}
-          </View>
-          {/* <Sidebar user={user} userData={userData} router={router} /> */}
         </>
+      )}
+
+      {isSidebarVisible && (
+        <View style={styles.sidebar}>
+          {/* Replace with your actual menu items */}
+          <Text style={styles.menuItem}>Profile</Text>
+          <Text style={styles.menuItem}>My Bookings</Text>
+          <Text style={styles.menuItem} onPress={() => router.push("/settings")}>
+            Settings
+          </Text>
+          <Text style={styles.menuItem} onPress={() => router.push("/help")}>
+            Help
+          </Text>
+          <Text style={styles.menuItem}>Settings</Text>
+          <Text style={styles.menuItem} onPress={() => router.push("/logout")}>
+            Logout
+          </Text>
+        </View>
       )}
     </View>
     // </SafeAreaView>
