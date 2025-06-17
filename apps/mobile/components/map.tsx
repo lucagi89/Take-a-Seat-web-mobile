@@ -126,7 +126,10 @@ export default function Map() {
           {/* Replace with your actual menu items */}
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => router.push("/profile")}
+            onPress={() => {
+              router.push("/profile");
+              setSidebarVisible(false);
+            }}
           >
             <Text>Profile</Text>
           </TouchableOpacity>
@@ -140,6 +143,7 @@ export default function Map() {
             style={styles.menuItem}
             onPress={() => {
               router.push("/about");
+              setSidebarVisible(false);
             }}
           >
             <Text>About</Text>

@@ -3,7 +3,7 @@ import React from "react";
 import { Slot } from "expo-router";
 import { View, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import PesistentMap from "../components/map";
+import Map from "../components/map";
 import { UserContextProvider } from "../contexts/userContext";
 import AuthGate from "@/contexts/AuthGate";
 import { useRouter } from "expo-router";
@@ -16,49 +16,27 @@ export default function RootLayout() {
 
   const isRoot = pathname === "/";
   const menuOpen = pathname === "/menu";
+  console.log("Current path:", usePathname());
 
   return (
     <UserContextProvider>
       <AuthGate>
         <View style={styles.container}>
           {/* 1. Always show the map */}
-          <PesistentMap />
-
-          {/* 3. Show the slot for nested routes */}
-
-          {/* <TouchableOpacity
-            style={{
-              position: "absolute",
-              bottom: 20,
-              right: 20,
-              backgroundColor: "#FFCA28",
-              padding: 12,
-              borderRadius: 50,
-              zIndex: 10,
-            }}
-            onPress={() => {
-              if (!menuOpen) {
-                router.replace("/menu");
-              } else {
-                router.replace("/");
-              }
-            }}
-          >
-            <Ionicons name="menu" size={32} color="white" />
-          </TouchableOpacity> */}
+          <Map />
 
           {/* 2. Only show overlay when not on root route */}
-          {!isRoot && (
-            <View style={styles.overlayWrapper} pointerEvents="box-none">
-              <View style={styles.dim} pointerEvents="none" />
+          {/* {!isRoot && ( */}
+          <View style={styles.overlayWrapper} pointerEvents="box-none">
+            <View style={styles.dim} pointerEvents="none" />
 
-              <View style={styles.modal} pointerEvents="auto">
-                <SafeAreaView style={{ flex: 1 }}>
-                  <Slot />
-                </SafeAreaView>
-              </View>
+            <View style={styles.modal} pointerEvents="auto">
+              <SafeAreaView style={{ flex: 1 }}>
+                <Slot />
+              </SafeAreaView>
             </View>
-          )}
+          </View>
+          {/* )} */}
         </View>
       </AuthGate>
     </UserContextProvider>
