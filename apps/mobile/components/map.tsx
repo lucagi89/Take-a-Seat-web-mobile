@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   Alert,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
 import MapView, { Marker, Callout } from "react-native-maps";
@@ -123,18 +124,34 @@ export default function Map() {
       {isSidebarVisible && (
         <View style={styles.sidebar}>
           {/* Replace with your actual menu items */}
-          <Text style={styles.menuItem}>Profile</Text>
-          <Text style={styles.menuItem}>My Bookings</Text>
-          <Text style={styles.menuItem} onPress={() => router.push("/settings")}>
-            Settings
-          </Text>
-          <Text style={styles.menuItem} onPress={() => router.push("/help")}>
-            Help
-          </Text>
-          <Text style={styles.menuItem}>Settings</Text>
-          <Text style={styles.menuItem} onPress={() => router.push("/logout")}>
-            Logout
-          </Text>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => router.push("/profile")}
+          >
+            <Text>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => router.push("/settings")}
+          >
+            <Text>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => {
+              router.push("/about");
+            }}
+          >
+            <Text>About</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => {
+              router.push("/help");
+            }}
+          >
+            <Text>Help</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
