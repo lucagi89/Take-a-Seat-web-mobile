@@ -26,17 +26,17 @@ export default function RootLayout() {
           <Map />
 
           {/* 2. Only show overlay when not on root route */}
-          {/* {!isRoot && ( */}
-          <View style={styles.overlayWrapper} pointerEvents="box-none">
-            <View style={styles.dim} pointerEvents="none" />
+          {/* {!isRoot && (
+            <View style={styles.overlayWrapper} pointerEvents="box-none">
+              <View style={styles.dim} pointerEvents="none" />
 
-            <View style={styles.modal} pointerEvents="auto">
-              <SafeAreaView style={{ flex: 1 }}>
-                <Slot />
-              </SafeAreaView>
+              <View style={styles.modal} pointerEvents="auto">
+                <SafeAreaView style={{ flex: 1 }}>
+                  <Slot />
+                </SafeAreaView>
+              </View>
             </View>
-          </View>
-          {/* )} */}
+          )} */}
         </View>
       </AuthGate>
     </UserContextProvider>

@@ -91,13 +91,22 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logoutText: { fontSize: 16, color: "#FFFFFF", fontWeight: "600" },
-  sidebar: {
+ sidebarOverlay: {
   position: "absolute",
-  top: "50%",
+  top: 0,
   left: 0,
-  transform: [{ translateY: -0.5 * 700 }], // half of the sidebar's height in negative
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0,0,0,0.3)",
+  zIndex: 998,
+},
+
+sidebarContent: {
+  position: "absolute",
+  top: 0,
+  left: 0,
   width: 250,
-  height: 700,             // fixed height to calculate center
+  height: "90%", // Fill full height of screen if needed
   backgroundColor: "#fffacd",
   zIndex: 999,
   padding: 20,
@@ -106,6 +115,8 @@ export const styles = StyleSheet.create({
   borderTopRightRadius: 10,
   borderBottomRightRadius: 10,
 },
+
+
 
 
 menuItem: {

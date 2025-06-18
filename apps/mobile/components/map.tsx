@@ -6,6 +6,7 @@ import {
   Alert,
   Text,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { useRouter } from "expo-router";
 import MapView, { Marker, Callout } from "react-native-maps";
@@ -72,15 +73,24 @@ export default function Map() {
 
   return (
     // <SafeAreaView style={styles.safeArea}>
-    <View style={styles.container}>
-      <View style={styles.menuButtonWrapper}>
-        <Ionicons
-          name="menu"
-          size={32}
-          color="white"
-          onPress={() => setSidebarVisible((prev) => !prev)}
-        />
-      </View>
+    <View
+      style={styles.container}
+      onPress={() => {
+        if (isSidebarVisible) {
+          setSidebarVisible(false);
+        }
+      }}
+    >
+      {!isSidebarVisible && (
+        <View style={styles.menuButtonWrapper}>
+          <Ionicons
+            name="menu"
+            size={32}
+            color="white"
+            onPress={() => setSidebarVisible((prev) => !prev)}
+          />
+        </View>
+      )}
 
       {mapRegion && (
         <>
@@ -122,43 +132,54 @@ export default function Map() {
       )}
 
       {isSidebarVisible && (
-        <View style={styles.sidebar}>
-          {/* Replace with your actual menu items */}
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => {
-              router.push("/profile");
-              setSidebarVisible(false);
-            }}
-          >
-            <Text>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => router.push("/settings")}
-          >
-            <Text>Settings</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => {
-              router.push("/about");
-              setSidebarVisible(false);
-            }}
-          >
-            <Text>About</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => {
-              router.push("/help");
-            }}
-          >
-            <Text>Help</Text>
-          </TouchableOpacity>
-        </View>
+        <>
+          {/* Full-screen overlay */}
+          <Pressable
+            onPress={() => setSidebarVisible(false)}
+            style={styles.sidebarOverlay}
+          />
+
+          {/* Sidebar content */}
+          <View style={styles.sidebarContent}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                router.push("/profile");
+                setSidebarVisible(false);
+              }}
+            >
+              <Text>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                router.push("/settings");
+                setSidebarVisible(false);
+              }}
+            >
+              <Text>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                router.push("/about");
+                setSidebarVisible(false);
+              }}
+            >
+              <Text>About</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                router.push("/help");
+                setSidebarVisible(false);
+              }}
+            >
+              <Text>Help</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       )}
     </View>
-    // </SafeAreaView>
   );
 }
