@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 import { styles } from '../styles/main-page-style';
 
-export default function Sidebar(setSidebarVisible: (visible: boolean) => void) {
+export default function Sidebar(setVisible: (visible: boolean) => void) {
 
   return (
     <>
               {/* Full-screen overlay */}
               <Pressable
-                onPress={() => setSidebarVisible(false)}
+                onPress={() => setVisible(false)}
                 style={styles.sidebarOverlay}
               />
 
@@ -18,7 +18,7 @@ export default function Sidebar(setSidebarVisible: (visible: boolean) => void) {
                   style={styles.menuItem}
                   onPress={() => {
                     router.push("/profile");
-                    setSidebarVisible(false);
+                    setVisible(false);
                   }}
                 >
                   <Text>Profile</Text>
@@ -27,7 +27,7 @@ export default function Sidebar(setSidebarVisible: (visible: boolean) => void) {
                   style={styles.menuItem}
                   onPress={() => {
                     router.push("/settings");
-                    setSidebarVisible(false);
+                    setVisible(false);
                   }}
                 >
                   <Text>Settings</Text>
@@ -36,7 +36,7 @@ export default function Sidebar(setSidebarVisible: (visible: boolean) => void) {
                   style={styles.menuItem}
                   onPress={() => {
                     router.push("/about");
-                    setSidebarVisible(false);
+                    setVisible(false);
                   }}
                 >
                   <Text>About</Text>
@@ -45,7 +45,7 @@ export default function Sidebar(setSidebarVisible: (visible: boolean) => void) {
                   style={styles.menuItem}
                   onPress={() => {
                     router.push("/help");
-                    setSidebarVisible(false);
+                    setVisible(false);
                   }}
                 >
                   <Text>Help</Text>

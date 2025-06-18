@@ -132,7 +132,7 @@ export default function Map() {
         </>
       )}
 
-      {isSidebarVisible && <Sidebar setSidebarVisible={setSidebarVisible} />}
+      {isSidebarVisible && <Sidebar setVisible={setSidebarVisible} />}
     </View>
   );
 }
