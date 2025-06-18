@@ -103,10 +103,10 @@ export const styles = StyleSheet.create({
 
 sidebarContent: {
   position: "absolute",
-  top: 0,
+  top: 55,
   left: 0,
   width: 250,
-  height: "90%", // Fill full height of screen if needed
+  height: "85%", // Fill full height of screen if needed
   backgroundColor: "#fffacd",
   zIndex: 999,
   padding: 20,

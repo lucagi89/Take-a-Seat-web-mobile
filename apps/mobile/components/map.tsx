@@ -16,6 +16,7 @@ import { useLocation } from "../hooks/useLocation";
 import { useRestaurants } from "../hooks/useRestaurants";
 import { fetchUserData } from "../services/databaseActions";
 import { styles } from "../styles/main-page-style";
+import Sidebar from "./Sidebar";
 
 interface Region {
   latitude: number;
@@ -131,55 +132,7 @@ export default function Map() {
         </>
       )}
 
-      {isSidebarVisible && (
-        <>
-          {/* Full-screen overlay */}
-          <Pressable
-            onPress={() => setSidebarVisible(false)}
-            style={styles.sidebarOverlay}
-          />
-
-          {/* Sidebar content */}
-          <View style={styles.sidebarContent}>
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() => {
-                router.push("/profile");
-                setSidebarVisible(false);
-              }}
-            >
-              <Text>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() => {
-                router.push("/settings");
-                setSidebarVisible(false);
-              }}
-            >
-              <Text>Settings</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() => {
-                router.push("/about");
-                setSidebarVisible(false);
-              }}
-            >
-              <Text>About</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() => {
-                router.push("/help");
-                setSidebarVisible(false);
-              }}
-            >
-              <Text>Help</Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
+      {isSidebarVisible && <Sidebar setSidebarVisible={setSidebarVisible} />}
     </View>
   );
 }

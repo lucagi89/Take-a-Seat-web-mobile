@@ -23,8 +23,8 @@ export default function RootLayout() {
       <AuthGate>
         <View style={styles.container}>
           {/* 1. Always show the map */}
-          <Map />
-
+          {/* <Map /> */}
+          <Slot />
           {/* 2. Only show overlay when not on root route */}
           {/* {!isRoot && (
             <View style={styles.overlayWrapper} pointerEvents="box-none">
