@@ -35,6 +35,15 @@ export default function Map() {
     longitudeDelta: 0.0421,
   };
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [openComponents, setOpenComponents] = useState({
+    isProfilePageOpen: false,
+    isSettingsPageOpen: false,
+    isAboutPageOpen: false,
+    isHelpPageOpen: false,
+    isFavouritesPageOpen: false,
+    isNotificationsPageOpen: false,
+    isBookingsPageOpen: false,
+  });
 
   const { region, setRegion, loading: locationLoading } = useLocation();
 
@@ -132,7 +141,12 @@ export default function Map() {
         </>
       )}
 
-      {isSidebarVisible && <Sidebar setVisible={setSidebarVisible} />}
+      {isSidebarVisible && (
+        <Sidebar
+          setVisible={setSidebarVisible}
+          setComponents={setOpenComponents}
+        />
+      )}
     </View>
   );
 }
