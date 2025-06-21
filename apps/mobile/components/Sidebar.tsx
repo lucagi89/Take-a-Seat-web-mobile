@@ -48,8 +48,6 @@ const menuItems: {
 ];
 
 export default function Sidebar({ setVisible, setComponents }: SidebarProps) {
-  const router = useRouter();
-
   const setOnlyComponent = (key: ComponentKey) => {
     if (!setComponents) return;
 

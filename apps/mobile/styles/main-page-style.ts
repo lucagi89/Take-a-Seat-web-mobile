@@ -107,7 +107,7 @@ sidebarContent: {
   left: 0,
   width: 250,
   height: "85%", // Fill full height of screen if needed
-  backgroundColor: "#fffacd",
+  backgroundColor: "ccc",
   zIndex: 999,
   padding: 20,
   borderRightWidth: 2,
@@ -132,6 +132,21 @@ menuButtonWrapper: {
   backgroundColor: "rgba(0,0,0,0.5)",
   borderRadius: 20,
   padding: 5,
+},
+
+componentContainer: {
+  position: "absolute",
+  top: 55,
+  left: 0,
+  width: 250,
+  height: "85%", // Fill full height of screen if needed
+  backgroundColor: "#ccc",
+  zIndex: 999,
+  padding: 20,
+  borderRightWidth: 2,
+  borderColor: "#ccc",
+  borderTopRightRadius: 10,
+  borderBottomRightRadius: 10,
 },
 
 });

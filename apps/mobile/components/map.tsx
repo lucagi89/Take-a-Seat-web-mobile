@@ -17,6 +17,13 @@ import { useRestaurants } from "../hooks/useRestaurants";
 import { fetchUserData } from "../services/databaseActions";
 import { styles } from "../styles/main-page-style";
 import Sidebar from "./Sidebar";
+import Profile from "./profile";
+import Settings from "./Settings";
+import About from "./About";
+import Help from "./Help";
+import Favourites from "./Favourites";
+import Notifications from "./Notifications";
+import Bookings from "./Bookings";
 
 interface Region {
   latitude: number;
@@ -44,6 +51,18 @@ export default function Map() {
     isNotificationsPageOpen: false,
     isBookingsPageOpen: false,
   });
+
+  const renderActiveComponent = () => {
+    if (openComponents.isProfilePageOpen) return <Profile />;
+    if (openComponents.isSettingsPageOpen) return <Settings />;
+    if (openComponents.isAboutPageOpen) return <About />;
+    if (openComponents.isHelpPageOpen) return <Help />;
+    if (openComponents.isFavouritesPageOpen) return <Favourites />;
+    if (openComponents.isNotificationsPageOpen) return <Notifications />;
+    if (openComponents.isBookingsPageOpen) return <Bookings />;
+    return null;
+  };
+  const activeComponent = renderActiveComponent();
 
   const { region, setRegion, loading: locationLoading } = useLocation();
 
@@ -146,6 +165,10 @@ export default function Map() {
           setVisible={setSidebarVisible}
           setComponents={setOpenComponents}
         />
+      )}
+
+      {activeComponent && (
+        <View style={styles.componentContainer}>{activeComponent}</View>
       )}
     </View>
   );
