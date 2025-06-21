@@ -17,13 +17,13 @@ import { useRestaurants } from "../hooks/useRestaurants";
 import { fetchUserData } from "../services/databaseActions";
 import { styles } from "../styles/main-page-style";
 import Sidebar from "./Sidebar";
-import Profile from "./profile";
-import Settings from "./Settings";
-import About from "./About";
-import Help from "./Help";
-import Favourites from "./Favourites";
+import Profile from "./Profile";
+// import Settings from "./Settings";
+// import About from "./About";
+// import Help from "./Help";
+// import Favourites from "./Favourites";
 import Notifications from "./Notifications";
-import Bookings from "./Bookings";
+// import Bookings from "./Bookings";
 
 interface Region {
   latitude: number;

@@ -107,7 +107,7 @@ sidebarContent: {
   left: 0,
   width: 250,
   height: "85%", // Fill full height of screen if needed
-  backgroundColor: "ccc",
+  backgroundColor: "#ccc",
   zIndex: 999,
   padding: 20,
   borderRightWidth: 2,
@@ -136,10 +136,11 @@ menuButtonWrapper: {
 
 componentContainer: {
   position: "absolute",
-  top: 55,
-  left: 0,
-  width: 250,
-  height: "85%", // Fill full height of screen if needed
+  top: "50%",
+  left: "50%",
+  transform: [{ translateX: -170 }, { translateY: -370 }], // adjust based on size
+  width: 340, // required for horizontal centering
+  height: 740, // or any fixed/dynamic height
   backgroundColor: "#ccc",
   zIndex: 999,
   padding: 20,
