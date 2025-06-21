@@ -18,10 +18,10 @@ import { fetchUserData } from "../services/databaseActions";
 import { styles } from "../styles/main-page-style";
 import Sidebar from "./Sidebar";
 import Profile from "./Profile";
-// import Settings from "./Settings";
+import Settings from "./Settings";
 // import About from "./About";
 // import Help from "./Help";
-// import Favourites from "./Favourites";
+import Favourites from "./Favourites";
 import Notifications from "./Notifications";
 // import Bookings from "./Bookings";
 
@@ -110,7 +110,7 @@ export default function Map() {
         }
       }}
     >
-      {!isSidebarVisible && (
+      {!isSidebarVisible && !activeComponent && (
         <View style={styles.menuButtonWrapper}>
           <Ionicons
             name="menu"
