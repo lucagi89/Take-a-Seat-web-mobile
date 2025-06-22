@@ -53,7 +53,8 @@ export default function Map() {
   });
 
   const renderActiveComponent = () => {
-    if (openComponents.isProfilePageOpen) return <Profile />;
+    if (openComponents.isProfilePageOpen)
+      return <Profile setProfile={setOpenComponents} />;
     if (openComponents.isSettingsPageOpen) return <Settings />;
     if (openComponents.isAboutPageOpen) return <About />;
     if (openComponents.isHelpPageOpen) return <Help />;

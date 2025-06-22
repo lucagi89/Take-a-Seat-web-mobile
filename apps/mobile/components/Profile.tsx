@@ -12,7 +12,13 @@ interface UserData {
   isProfileComplete?: boolean;
 }
 
-export default function Profile() {
+interface ProfileProps {
+  setProfile: React.Dispatch<
+    React.SetStateAction<{ isProfilePageOpen: boolean }>
+  >;
+}
+
+export default function Profile({ setProfile }: ProfileProps) {
   const { user, loading, userData } = useUser();
   const [userRestaurants, setUserRestaurants] = useState([]);
   const router = useRouter();
@@ -94,7 +100,12 @@ export default function Profile() {
           <Text style={styles.linkText}>Cancel Account</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.abort} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.abort}
+          onPress={() =>
+            setProfile((prev) => ({ ...prev, isProfilePageOpen: false }))
+          }
+        >
           <Text style={{ color: "black", textAlign: "center" }}>X</Text>
         </TouchableOpacity>
       </View>
