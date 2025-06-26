@@ -10,7 +10,6 @@ import { useRouter } from "expo-router";
 import { usePathname } from "expo-router";
 
 export default function RootLayout() {
-  // const segments = useSegments();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -22,21 +21,7 @@ export default function RootLayout() {
     <UserContextProvider>
       <AuthGate>
         <View style={styles.container}>
-          {/* 1. Always show the map */}
-          {/* <Map /> */}
           <Slot />
-          {/* 2. Only show overlay when not on root route */}
-          {/* {!isRoot && (
-            <View style={styles.overlayWrapper} pointerEvents="box-none">
-              <View style={styles.dim} pointerEvents="none" />
-
-              <View style={styles.modal} pointerEvents="auto">
-                <SafeAreaView style={{ flex: 1 }}>
-                  <Slot />
-                </SafeAreaView>
-              </View>
-            </View>
-          )} */}
         </View>
       </AuthGate>
     </UserContextProvider>

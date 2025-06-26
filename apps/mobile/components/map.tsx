@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   Pressable,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useRouter } from "expo-router";
 import MapView, { Marker, Callout } from "react-native-maps";
@@ -51,6 +52,19 @@ export default function Map() {
     isNotificationsPageOpen: false,
     isBookingsPageOpen: false,
   });
+
+  const closeEveryPage = () => {
+    setOpenComponents({
+      isProfilePageOpen: false,
+      isSettingsPageOpen: false,
+      isAboutPageOpen: false,
+      isHelpPageOpen: false,
+      isFavouritesPageOpen: false,
+      isNotificationsPageOpen: false,
+      isBookingsPageOpen: false,
+    });
+    setSidebarVisible(false);
+  };
 
   const renderActiveComponent = () => {
     if (openComponents.isProfilePageOpen)
@@ -103,74 +117,73 @@ export default function Map() {
 
   return (
     // <SafeAreaView style={styles.safeArea}>
-    <View
-      style={styles.container}
+    <TouchableWithoutFeedback
       onPress={() => {
-        if (isSidebarVisible) {
-          setSidebarVisible(false);
-        }
+        closeEveryPage();
       }}
     >
-      {!isSidebarVisible && !activeComponent && (
-        <View style={styles.menuButtonWrapper}>
-          <Ionicons
-            name="menu"
-            size={32}
-            color="white"
-            onPress={() => setSidebarVisible((prev) => !prev)}
-          />
-        </View>
-      )}
+      <View style={styles.container}>
+        {!isSidebarVisible && !activeComponent && (
+          <View style={styles.menuButtonWrapper}>
+            <Ionicons
+              name="menu"
+              size={32}
+              color="white"
+              onPress={() => setSidebarVisible((prev) => !prev)}
+            />
+          </View>
+        )}
 
-      {mapRegion && (
-        <>
-          <MapView
-            style={styles.map}
-            showsUserLocation
-            showsMyLocationButton
-            showsCompass
-            region={mapRegion}
-            onRegionChangeComplete={(newRegion) => {
-              setMapRegion(newRegion);
-              setRegion(newRegion); // if you still want to sync with global location state
-            }}
-          >
-            {visibleRestaurants.map((restaurant) => (
-              <Marker
-                key={restaurant.id}
-                coordinate={{
-                  latitude: restaurant.latitude,
-                  longitude: restaurant.longitude,
-                }}
-                pinColor={restaurant.isAvailable ? "green" : "red"}
-              >
-                <Callout
-                  tooltip={false}
-                  onPress={() => {
-                    restaurantSelectionHandler(restaurant.id);
+        {mapRegion && (
+          <>
+            <MapView
+              style={styles.map}
+              showsUserLocation
+              showsMyLocationButton
+              showsCompass
+              region={mapRegion}
+              onRegionChangeComplete={(newRegion) => {
+                setMapRegion(newRegion);
+                setRegion(newRegion); // if you still want to sync with global location state
+              }}
+            >
+              {visibleRestaurants.map((restaurant) => (
+                <Marker
+                  key={restaurant.id}
+                  coordinate={{
+                    latitude: restaurant.latitude,
+                    longitude: restaurant.longitude,
                   }}
+                  pinColor={restaurant.isAvailable ? "green" : "red"}
                 >
-                  <View>
-                    <Text style={styles.calloutTitle}>{restaurant.name}</Text>
-                    <Text>{restaurant.streetAddress}</Text>
-                  </View>
-                </Callout>
-              </Marker>
-            ))}
-          </MapView>
-        </>
-      )}
+                  <Callout
+                    tooltip={false}
+                    onPress={() => {
+                      restaurantSelectionHandler(restaurant.id);
+                    }}
+                  >
+                    <View>
+                      <Text style={styles.calloutTitle}>{restaurant.name}</Text>
+                      <Text>{restaurant.streetAddress}</Text>
+                    </View>
+                  </Callout>
+                </Marker>
+              ))}
+            </MapView>
+          </>
+        )}
 
-      {isSidebarVisible && (
-        <Sidebar
-          setVisible={setSidebarVisible}
-          setComponents={setOpenComponents}
-        />
-      )}
+        {isSidebarVisible && (
+          <Sidebar
+            setVisible={setSidebarVisible}
+            setComponents={setOpenComponents}
+          />
+        )}
 
-      {activeComponent && (
-        <View style={styles.componentContainer}>{activeComponent}</View>
-      )}
-    </View>
+        {activeComponent && (
+          <View style={styles.componentContainer}>{activeComponent}</View>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
