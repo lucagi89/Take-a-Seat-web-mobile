@@ -5,6 +5,7 @@ import { Redirect, Link } from "expo-router";
 import { getUserRestaurants } from "../services/databaseActions";
 import { useRouter } from "expo-router";
 import { deleteUser } from "../services/databaseActions";
+import CloseButton from "./CloseButton";
 
 interface UserData {
   name: string;
@@ -13,12 +14,12 @@ interface UserData {
 }
 
 interface ProfileProps {
-  setProfile: React.Dispatch<
-    React.SetStateAction<{ isProfilePageOpen: boolean }>
+  setComponent: React.Dispatch<
+    React.SetStateAction<{ isComponentPageOpen: boolean }>
   >;
 }
 
-export default function Profile({ setProfile }: ProfileProps) {
+export default function Profile({ setComponent }: ProfileProps) {
   const { user, loading, userData } = useUser();
   const [userRestaurants, setUserRestaurants] = useState([]);
   const router = useRouter();
@@ -80,18 +81,6 @@ export default function Profile({ setProfile }: ProfileProps) {
             {userData?.isProfileComplete ? "Edit Profile" : "Complete Profile"}
           </Link>
         </TouchableOpacity>
-        {userRestaurants.length > 0 && (
-          <TouchableOpacity style={styles.linkButton}>
-            <Link href="/my-restaurants" style={styles.linkText}>
-              View My Restaurants
-            </Link>
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity style={styles.linkButton}>
-          <Link href="/create-restaurant" style={styles.linkText}>
-            Create a Restaurant
-          </Link>
-        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.deleteAccount}
@@ -100,14 +89,7 @@ export default function Profile({ setProfile }: ProfileProps) {
           <Text style={styles.linkText}>Cancel Account</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.abort}
-          onPress={() =>
-            setProfile((prev) => ({ ...prev, isProfilePageOpen: false }))
-          }
-        >
-          <Text style={{ color: "black", textAlign: "center" }}>X</Text>
-        </TouchableOpacity>
+        <CloseButton setComponent={setComponent} pageName="Profile" />
       </View>
     </View>
   );

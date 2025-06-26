@@ -20,8 +20,8 @@ import { styles } from "../styles/main-page-style";
 import Sidebar from "./Sidebar";
 import Profile from "./Profile";
 import Settings from "./Settings";
-// import About from "./About";
-// import Help from "./Help";
+import About from "./About";
+import Help from "./Help";
 import Favourites from "./Favourites";
 import Notifications from "./Notifications";
 // import Bookings from "./Bookings";
@@ -68,15 +68,22 @@ export default function Map() {
 
   const renderActiveComponent = () => {
     if (openComponents.isProfilePageOpen)
-      return <Profile setProfile={setOpenComponents} />;
-    if (openComponents.isSettingsPageOpen) return <Settings />;
-    if (openComponents.isAboutPageOpen) return <About />;
-    if (openComponents.isHelpPageOpen) return <Help />;
-    if (openComponents.isFavouritesPageOpen) return <Favourites />;
-    if (openComponents.isNotificationsPageOpen) return <Notifications />;
-    if (openComponents.isBookingsPageOpen) return <Bookings />;
+      return <Profile setComponent={setOpenComponents} />;
+    if (openComponents.isSettingsPageOpen)
+      return <Settings setComponent={setOpenComponents} />;
+    if (openComponents.isAboutPageOpen)
+      return <About setComponent={setOpenComponents} />;
+    if (openComponents.isHelpPageOpen)
+      return <Help setComponent={setOpenComponents} />;
+    if (openComponents.isFavouritesPageOpen)
+      return <Favourites setComponent={setOpenComponents} />;
+    if (openComponents.isNotificationsPageOpen)
+      return <Notifications setComponent={setOpenComponents} />;
+    if (openComponents.isBookingsPageOpen)
+      return <Bookings setComponent={setOpenComponents} />;
     return null;
   };
+
   const activeComponent = renderActiveComponent();
 
   const { region, setRegion, loading: locationLoading } = useLocation();

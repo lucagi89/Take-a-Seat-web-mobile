@@ -9,7 +9,13 @@ import {
 } from "../services/databaseActions";
 import RestaurantCard from "@/components/RestaurantCard";
 
-export default function Favourites() {
+interface FavouritesProps {
+  setComponent: React.Dispatch<
+    React.SetStateAction<{ isAboutPageOpen: boolean }>
+  >;
+}
+
+export default function Favourites({ setComponent }: FavouritesProps) {
   const { userData, user, setUserData } = useUser();
   // const { favourites = [] } = userData || {};
   const { favourites = [] } = userData || {};
@@ -63,9 +69,7 @@ export default function Favourites() {
       ) : (
         <Text>No favourite restaurants found.</Text>
       )}
-      <TouchableOpacity style={styles.abort} onPress={() => router.back()}>
-        <Text>X</Text>
-      </TouchableOpacity>
+      <CloseButton setComponent={setComponent} pageName="Favourites" />
     </View>
   );
 }
