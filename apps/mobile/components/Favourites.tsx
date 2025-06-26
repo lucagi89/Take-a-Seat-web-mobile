@@ -8,6 +8,7 @@ import {
   toggleRestaurantToFavourites,
 } from "../services/databaseActions";
 import RestaurantCard from "@/components/RestaurantCard";
+import CloseButton from "./CloseButton";
 
 interface FavouritesProps {
   setComponent: React.Dispatch<

@@ -116,6 +116,12 @@ sidebarContent: {
   borderBottomRightRadius: 10,
 },
 
+image: {
+  width: 80,
+  height: 80,
+  borderRadius: 40,
+  marginBottom: 20,
+},
 
 
 

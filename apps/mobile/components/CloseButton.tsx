@@ -30,7 +30,7 @@ export default function CloseButton({
 const styles = StyleSheet.create({
   abort: {
     position: "absolute",
-    top: 10,
+    bottom: 10,
     right: 10,
     padding: 10,
     backgroundColor: "#f0f0f0",

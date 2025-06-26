@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Pressable } from "react-native";
+import { useEffect } from "react";
+import { View, Text, TouchableOpacity, Pressable, Image } from "react-native";
+
 import { styles } from "../styles/main-page-style";
-import { useRouter } from "expo-router";
+// import { useRouter } from "expo-router";
 
 interface SidebarProps {
   setVisible: (visible: boolean) => void;
@@ -14,6 +16,7 @@ interface SidebarProps {
     isNotificationsPageOpen: boolean;
     isBookingsPageOpen: boolean;
   }) => void;
+  userProfilePicture?: string;
 }
 
 type ComponentKey =
@@ -47,7 +50,11 @@ const menuItems: {
   },
 ];
 
-export default function Sidebar({ setVisible, setComponents }: SidebarProps) {
+export default function Sidebar({
+  setVisible,
+  setComponents,
+  userProfilePicture,
+}: SidebarProps) {
   const setOnlyComponent = (key: ComponentKey) => {
     if (!setComponents) return;
 
@@ -79,6 +86,20 @@ export default function Sidebar({ setVisible, setComponents }: SidebarProps) {
 
       {/* Sidebar content */}
       <View style={styles.sidebarContent}>
+        {userProfilePicture && userProfilePicture?.startsWith("http") ? (
+          <Image
+            source={{ uri: userProfilePicture }}
+            style={styles.image}
+            onError={(e) =>
+              console.log("Error loading image:", e.nativeEvent.error)
+            }
+          />
+        ) : (
+          <View style={styles.placeholder}>
+            <Text>No Photo</Text>
+          </View>
+        )}
+
         {menuItems.map(({ label, componentKey }) => (
           <TouchableOpacity
             key={componentKey}

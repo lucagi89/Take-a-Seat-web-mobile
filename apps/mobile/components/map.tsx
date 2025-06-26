@@ -5,8 +5,7 @@ import {
   ActivityIndicator,
   Alert,
   Text,
-  TouchableOpacity,
-  Pressable,
+  Image,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useRouter } from "expo-router";
@@ -52,6 +51,15 @@ export default function Map() {
     isNotificationsPageOpen: false,
     isBookingsPageOpen: false,
   });
+
+  const [profilePicture, setProfilePicture] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (userData?.photoURL && userData.photoURL.startsWith("http")) {
+      Image.prefetch(userData.photoURL);
+      setProfilePicture(userData.photoURL);
+    }
+  }, [userData?.photoURL]);
 
   const closeEveryPage = () => {
     setOpenComponents({
@@ -184,6 +192,7 @@ export default function Map() {
           <Sidebar
             setVisible={setSidebarVisible}
             setComponents={setOpenComponents}
+            userProfilePicture={profilePicture}
           />
         )}
 
