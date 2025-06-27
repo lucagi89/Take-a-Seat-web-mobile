@@ -27,7 +27,20 @@ export default function Tables() {
 
   return (
     <View style={styles.container}>
-      <Text>Tables</Text>
+      {!restaurantListView ? (
+        <RestaurantFloorPlan
+          restaurant={restaurant}
+          restaurantId={restaurantId}
+          tables={tables}
+          isOwner={isOwner}
+        />
+      ) : (
+        <TableList
+          restaurantId={restaurantId}
+          tables={tables}
+          isOwner={isOwner}
+        />
+      )}
       <TouchableOpacity
         onPress={() => handleSwitchView()}
         style={styles.switch}
@@ -49,20 +62,6 @@ export default function Tables() {
           Floorplan
         </Text>
       </TouchableOpacity>
-      {!restaurantListView ? (
-        <RestaurantFloorPlan
-          restaurant={restaurant}
-          restaurantId={restaurantId}
-          tables={tables}
-          isOwner={isOwner}
-        />
-      ) : (
-        <TableList
-          restaurantId={restaurantId}
-          tables={tables}
-          isOwner={isOwner}
-        />
-      )}
     </View>
   );
 }
@@ -71,8 +70,14 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    height: 800,
+    height: 500,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     width: "100%",
+    borderWidth: 5,
+    borderColor: "#ccc",
+    flex: 1,
   },
   switch: {
     margin: "auto",

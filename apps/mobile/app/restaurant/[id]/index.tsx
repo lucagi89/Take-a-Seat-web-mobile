@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useRestaurant } from "../../../contexts/RestaurantContext";
 
-type Restaurant = {
-  name: string;
-  description: string;
-  address: string;
-  imageUrls: string[];
-};
+// type Restaurant = {
+//   name: string;
+//   description: string;
+//   address: string;
+//   imageUrls: string[];
+// };
 
 export default function Info() {
   const restaurantContext = useRestaurant();
