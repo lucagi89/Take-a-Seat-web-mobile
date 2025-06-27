@@ -22,7 +22,7 @@ export default function TableList() {
   const { restaurant, restaurantId } = useRestaurant();
   const { loading, error } = useRestaurantTables(restaurantId);
   const { user } = useUser();
-  const isOwner = user?.uid === restaurant?.userId;
+  // const isOwner = user?.uid === restaurant?.userId;
   const { tables } = useRestaurantTables(restaurantId);
 
   if (loading) return <ActivityIndicator />;
@@ -34,14 +34,15 @@ export default function TableList() {
         <View key={t.id} style={styles.container}>
           <View>
             <Text>Table – Seats: {t.capacity}</Text>
-            <Text>Status: {t.isAvailable ? "Available" : "Taken"}</Text>
+            <Text>{t.isAvailable ? "Available" : "Not Available"}</Text>
           </View>
 
           {t.isAvailable && (
             <TouchableOpacity
               onPress={() => {
                 // Handle table selection or action
-                handleTablePress(t, isOwner, tables);
+
+                handleTablePress(t, tables);
               }}
               style={{
                 backgroundColor: t.isAvailable ? "green" : "red",

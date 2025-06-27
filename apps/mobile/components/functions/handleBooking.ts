@@ -12,7 +12,7 @@ export const handleBooking = async (table: Table, partySize: number) => {
 
     //create booking object with tableId, partySize, timestamp and status pending
 
-    console.log("working on the booking")
+
 
     const booking: Booking = {
       tableId: table.id,
@@ -21,7 +21,7 @@ export const handleBooking = async (table: Table, partySize: number) => {
       status: "pending",
       restaurantId: table.restaurantId,
       userId: auth.currentUser?.uid || "",
-      id: "", // This will be set by Firestore
+      // id: "", // This will be set by Firestore
       reservationDate: new Date().toISOString(),
       reservationTime: new Date().toISOString(),
     };

@@ -36,9 +36,9 @@ export default function Tables() {
         />
       ) : (
         <TableList
-          restaurantId={restaurantId}
-          tables={tables}
-          isOwner={isOwner}
+        // restaurantId={restaurantId}
+        // tables={tables}
+        // isOwner={isOwner}
         />
       )}
       <TouchableOpacity
@@ -70,7 +70,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    height: 500,
+    height: 100,
+    maxHeight: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -82,13 +83,15 @@ const styles = StyleSheet.create({
   switch: {
     margin: "auto",
     width: "80%",
-    height: 50,
+    // height: 50,
+    borderColor: "#ccc",
+    borderWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    // padding: 10,
     borderRadius: 5,
-    marginTop: 40,
-    marginBottom: 10,
+    // marginTop: 40,
+    // marginBottom: 10,
   },
   buttonSwitch: {
     flex: 1,
