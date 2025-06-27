@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   navbar: {
     flexDirection: "row",
     justifyContent: "space-around",
-    // alignItems: "center",
-    // paddingVertical: 8,
+    alignItems: "center",
+    paddingVertical: 8,
     backgroundColor: "#2E7D32",
     position: "absolute",
     bottom: 0,
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   navItem: {
     paddingHorizontal: 8,
     paddingVertical: 16,
+    marginBottom: 16,
     borderRadius: 8,
   },
   navText: {

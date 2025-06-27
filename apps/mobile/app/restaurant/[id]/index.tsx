@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useRestaurant } from "../../../contexts/RestaurantContext";
+import FavouriteStarButton from "./components/FavouriteStarButton";
 
 // type Restaurant = {
 //   name: string;
@@ -18,6 +19,7 @@ export default function Info() {
 
   return (
     <View style={styles.container}>
+      <FavouriteStarButton />
       <Text style={styles.title}>{name}</Text>
       <Text>{description}</Text>
       <Text>{address}</Text>

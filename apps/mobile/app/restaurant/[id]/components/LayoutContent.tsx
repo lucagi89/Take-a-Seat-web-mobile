@@ -1,6 +1,5 @@
 import React from "react";
 import { View, SafeAreaView, StyleSheet } from "react-native";
-import FavouriteStarButton from "./FavouriteStarButton";
 import RestaurantNavbar from "./RestaurantNavbar";
 import { Stack } from "expo-router";
 
@@ -8,7 +7,6 @@ export default function LayoutContent() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <FavouriteStarButton />
         <View style={styles.stackContainer}>
           <Stack screenOptions={{ headerShown: false }} />
         </View>
