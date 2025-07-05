@@ -4,6 +4,7 @@ import { handleUser } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
 import Styles from "../../styles/login-signup.module.scss";
+import Link from "next/link";
 
 export default function LoginPage() {
   const { user, loading, setLoading, userRestaurants } = useUser();
@@ -78,6 +79,16 @@ export default function LoginPage() {
         <button type="submit" className={Styles.button} disabled={loading}>
           Log in
         </button>
+
+        <p className="text-sm mt-4">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/create-profile"
+            className="text-blue-500 hover:underline"
+          >
+            Create one
+          </Link>
+        </p>
       </form>
     </>
   );

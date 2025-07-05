@@ -9,12 +9,14 @@ interface UserContextType {
   user: User | null;
   loading: boolean;
   userRestaurants: Restaurant[];
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserContext = createContext<UserContextType>({
   user: null,
   loading: true,
   userRestaurants: [],
+  setLoading: () => {}, // Default function to avoid undefined error
 });
 
 export const UserContextProvider = ({
@@ -54,7 +56,9 @@ export const UserContextProvider = ({
   }, [user]); // ✅ Only depend on `user`
 
   return (
-    <UserContext.Provider value={{ user, loading, userRestaurants }}>
+    <UserContext.Provider
+      value={{ user, loading, userRestaurants, setLoading }}
+    >
       {children}
     </UserContext.Provider>
   );
