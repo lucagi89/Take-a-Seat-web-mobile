@@ -30,7 +30,7 @@ import { FileInput, HelperText, Label } from "flowbite-react";
 // const availableKeywords = ["Italian", "Vegan", "Grill", "Bakery", "Sushi"];
 
 export default function CreateRestaurantPage() {
-  const { user } = useUser();
+  const { user, userRestaurants } = useUser();
   const router = useRouter();
   const [images, setImages] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -56,7 +56,7 @@ export default function CreateRestaurantPage() {
     );
   };
 
-  const onSubmit = async (data: any) => {
+  const handleSubmition = async (data: any) => {
     if (!user) return alert("You must be logged in");
 
     setUploading(true);
@@ -87,13 +87,13 @@ export default function CreateRestaurantPage() {
 
     // Call your Firestore function here (e.g. addDoc)
     setUploading(false);
-    router.push("/dashboard");
+    router.push(`/dashboard/${userRestaurants[0]?.id || ""}`);
   };
 
   return (
     <div className={Styles.fullWidthContainer}>
       <h1>Create a Restaurant</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={Styles.formGrid}>
+      <form onSubmit={handleSubmition} className={Styles.formGrid}>
         <div className={Styles.inputContainer}>
           <label>Name</label>
           <input {...register("name")} className={Styles.input} required />

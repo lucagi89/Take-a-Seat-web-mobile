@@ -26,6 +26,11 @@ export default function LoginPage() {
     handleUser(email, password)
       .then(() => {
         // Successful login — user & restaurants will be updated by context
+        if (!userRestaurants || userRestaurants.length === 0) {
+          router.push(`/create-restaurant`);
+        } else {
+          router.push(`/dashboard/${userRestaurants[0].id}`);
+        }
         setEmail("");
         setPassword("");
       })
