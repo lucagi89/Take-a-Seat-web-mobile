@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
 import Styles from "../../styles/login-signup.module.scss";
+import { addDocument } from "../../lib/databaseActions";
 // import { profile } from "console";
 
 export default function CompleteProfilePage() {
@@ -21,21 +22,23 @@ export default function CompleteProfilePage() {
     profilePicture: "",
   });
 
-  useEffect(() => {
-    if (!loading && user) {
-      // Redirect to dashboard or another page if user is already logged in
-      router.push(`/dashboard/${user.uid}`);
-    }
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (!loading && user) {
+  //     // Redirect to dashboard or another page if user is already logged in
+  //     router.push(`/dashboard/${user.uid}`);
+  //   }
+  // }, [user, loading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
+      await addDocument(userData, "users", user?.uid);
+
       // Here you would typically save the user's profile data to your database
-      console.log("Profile data submitted:", { name, phone });
+      // console.log("Profile data submitted:", { name, phone });
       // Redirect to dashboard or another page after successful profile completion
-      router.push(`/dashboard/${user.uid}`);
+      router.push(`/create-restaurant`);
     } catch (error) {
       console.error("Error completing profile:", error);
       alert("Failed to complete profile. Please try again.");

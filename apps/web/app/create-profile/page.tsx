@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { handleUser } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
@@ -7,37 +7,11 @@ import Styles from "../../styles/login-signup.module.scss";
 import { signUp } from "../../services/auth";
 
 export default function CreateProfilePage() {
-  const { user, loading, setLoading, userRestaurants } = useUser();
+  const { loading, setLoading } = useUser();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // useEffect(() => {
-  //   if (!loading && user) {
-  //     if (userRestaurants && userRestaurants.length > 0) {
-  //       router.push(`/dashboard/${userRestaurants[0].id}`);
-  //     }
-  //   }
-  // }, [user, loading, userRestaurants]);
-
-  // const handleLogin = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   handleUser(email, password)
-  //     .then(() => {
-  //       // Successful login — user & restaurants will be updated by context
-  //       setEmail("");
-  //       setPassword("");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Login error:", error);
-  //       alert("Login failed. Please check your credentials.");
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
